@@ -1,0 +1,82 @@
+<div class="search-table">
+  <div class="row">
+    <div class="col-4 search-text">{{ 'card.search.memberNo' | translate}}</div>
+    <div class="col-2 search-text">{{ 'card.search.expirationDate' | translate}}</div>
+    <div class="col-2 search-text">{{ 'card.search.companyCode' | translate}}</div>
+    <div class="col-2 search-text">{{ 'card.search.storeCode' | translate}}</div>
+    <div class="col-2 search-text">{{ 'card.search.cardStatus' | translate}}</div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-4"><input placeholder="{{ 'card.search.memberNoPlaceholder' | translate}}" [(ngModel)]="memberNo"
+      onlyHalfWidth="true" maxlength="10" type="text" class="form-control"></div>
+    <div class="col-2"><input placeholder="{{ 'card.search.expirationDatePlaceholder' | translate}}" [(ngModel)]="expirationDate"
+       (blur)="validateExpirationDate(expirationDate)" type="text" class="form-control"></div>
+    <div class="col-2"><input placeholder="{{ 'card.search.companyCodePlaceholder' | translate}}" [(ngModel)]="companyCode"
+      onlyHalfWidth="true" maxlength="4" type="text" class="form-control"></div>
+    <div class="col-2"><input placeholder="{{ 'card.search.storeCodePlaceholder' | translate}}" [(ngModel)]="storeCode" type="text"
+      onlyHalfWidth="true" maxlength="4" class="form-control"></div>
+    <div class="col-2">
+      <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" placeholder="{{ 'card.search.cardStatusPlaceholder' | translate}}"
+        #statusSelect [items]="listStatus" bindLabel="Text" bindValue="Value" [(ngModel)]="status" [clearable]="true" class="w-100">
+      </ng-select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2 search-text">{{ 'card.search.registeredDate' | translate }}</div>
+    <div class="col-2"></div>
+    <div class="col-2 search-text">{{ 'card.search.receptionist' | translate}}</div>
+  </div>
+  <div class="row">
+    <div class="col-4 d-flex">
+      <div class="form-group hidden">
+        <div class="input-group">
+          <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker" [autoClose]="'outside'"
+            (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" [startDate]="fromDate!" tabindex="-1">
+          <ng-template #t let-date let-focused="focused">
+            <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)" [class.faded]="isHovered(date) || isInside(date)"
+              (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+              {{ date.day }}
+            </span>
+          </ng-template>
+        </div>
+      </div>
+      <div class="w-50">
+        <div class="input-group w-100">
+          <input #dpFromDate class="form-control" placeholder="{{ 'card.search.registeredDatePlaceholder' | translate}}" name="dpFromDate"
+            [value]="formatter.format(fromDate)" (blur)="validateFromDate($event)"
+            [(ngModel)]="fromDateModel" (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary btn-calendar calendar" (click)="datepicker.toggle()" type="button"><i
+                class="bi bi-calendar-date"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="separate-dash"><span>～</span></div>
+      <div class="w-50">
+        <div class="input-group w-100">
+          <input #dpToDate id="dpToDate" class="form-control" placeholder="{{ 'card.search.registeredDate2Placeholder' | translate}}" name="dpToDate"
+            [value]="formatter.format(toDate)" (blur)="validateToDate($event)" [(ngModel)]="toDateModel"
+            (input)="toDate = validateInput(toDate, dpToDate.value)">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary btn-calendar calendar" (click)="datepicker.toggle()" type="button"><i
+                class="bi bi-calendar-date"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4"><input [(ngModel)]="acceptBy" placeholder="{{ 'card.search.receptionistPlaceholder' | translate}}" type="text"
+        class="form-control"></div>
+    <div class="col-2"><button (click)="handleClearData()" class="btn btn-confirm w-100">{{ 'card.clearBtn' | translate}}</button></div>
+    <div class="col-2"><button [checkPermission]="permission.WF411" (click)="handleSearch()" class="btn btn-confirm w-100">{{ 'card.searchBtn' |
+        translate}}</button></div>
+  </div>
+</div>
+<div class="display-table">
+  <common-grid [checkPermission]="permission.WF412" height="500px" [canDownload]="permission.WF413" [canView]="permission.WF42" #commonGrid
+    [rowData]="rowData" [isInitGrid]="isInitGrid" [isEnableExport]="isShowButtonExport" [columnDefs]="columnDefs" [(page)]="page"
+    [totalRecords]="totalRecords" [recordsPerPage]="recordsPerPage" (sortEvent)="onSortCommon($event)"
+    (rowDoubleClickEvent)="onRowDoubleClickCommon($event)" (rowClickEvent)="onRowClickCommon($event)" (pageChangeEvent)="onPageChangeEvent($event)"
+    (exportClickedEvent)="onExportClickedEvent($event)">
+  </common-grid>
+</div>
+<close-modal #closeModal></close-modal>

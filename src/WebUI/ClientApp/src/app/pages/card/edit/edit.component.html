@@ -1,0 +1,147 @@
+<div class="card m-3">
+  <div class="card-header">
+    <div class="title-edit">
+      <span>{{ "card.common.editTitle" | translate }}</span>
+      <div>
+        <button *ngIf="!cardItem.companyId || !cardItem.storeId || !cardItem.status" disabled class="btn btn-header btn-disable"
+          [checkPermission]="permission.WF43">
+          <i class="bi bi-check-lg icon"></i>
+        </button>
+        <button *ngIf="cardItem.companyId && cardItem.storeId && cardItem.status" class="btn btn-header" (click)="handleClickEdit()"
+          [checkPermission]="permission.WF43">
+          <i class="bi bi-check-lg icon"></i>
+        </button>
+        <button (click)="handleClickDelete()" class="btn btn-header" [checkPermission]="permission.WF44"><i class="bi bi-trash icon"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container">
+          <span class="item-title">{{ "card.memberNo" | translate }}</span>
+        </div>
+      </div>
+      <div class="item-content col">
+        <span>{{ cardItem?.memberNo }}</span>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container">
+          <span class="item-title">{{ "card.expiredDate" | translate }}</span>
+        </div>
+      </div>
+      <div class="item-content col">
+        <span>{{ cardItem?.expiredAt | dateWithFormat: "YYYY/MM" }}</span>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable">
+          <span class="item-title-editable">{{
+            "card.status" | translate
+            }}</span>
+        </div>
+      </div>
+      <div class="item-content-editable col-lg-2 col-md-2 col-sm-3 col-xs-3">
+        <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" placeholder="{{ 'card.search.cardStatusPlaceholder' | translate}}"
+          #statusSelect [items]="listStatus" bindLabel="Text" bindValue="Value" [(ngModel)]="cardItem.status" [searchable]="false" [clearable]="false"
+          class="w-100 p-0">
+          <ng-template ng-label-tmp let-item="item">
+            {{ handleFilterStatus(item) }}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            {{ handleFilterStatus(item) }}
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable">
+          <span class="item-title-editable">{{
+            "card.about" | translate
+            }}</span>
+        </div>
+      </div>
+      <div class="item-content-editable col-lg-2 col-md-2 col-sm-3 col-xs-3">
+        <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" #company required [items]="listCompanies" bindLabel="companyCode"
+          bindValue="id" [(ngModel)]="cardItem.companyId" (change)="companiesChanged($event)" [clearable]="false" class="w-100 p-0">
+        </ng-select>
+      </div>
+      <div class="item-content col">
+        <span>{{ companyName }}</span>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable">
+          <span class="item-title-editable">{{
+            "card.store" | translate
+            }}</span>
+        </div>
+      </div>
+      <div class="item-content-editable col-lg-2 col-md-2 col-sm-3 col-xs-3">
+        <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" #store [items]="listStores" bindLabel="storeCode" bindValue="id"
+          [(ngModel)]="cardItem.storeId" (change)="storesChanged($event)" [clearable]="false" class="w-100 p-0">
+        </ng-select>
+      </div>
+      <div class="item-content col">
+        <span>{{ storeName }}</span>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container">
+          <span class="item-title">{{
+            "card.registeredDate" | translate
+            }}</span>
+        </div>
+      </div>
+      <div class="item-content col">
+        <span>{{ cardItem?.createdAt| dateFormatPipe }}</span>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container">
+          <span class="item-title">{{ "card.registeredBy" | translate }}</span>
+        </div>
+      </div>
+      <div class="item-content col-lg-2 col-md-2 col-sm-3 col-xs-3">
+        <span>{{ cardItem?.createder?.userName }}</span>
+      </div>
+      <div class="item-content col">
+        <span>{{ cardItem?.createder?.fullName }}</span>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container">
+          <span class="item-title">{{ "card.updatedDate" | translate }}</span>
+        </div>
+      </div>
+      <div class="item-content col">
+        <span>{{ cardItem?.updatedAt| toLocalTime}}</span>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container">
+          <span class="item-title">{{
+            "card.updatedBy" | translate
+            }}</span>
+        </div>
+      </div>
+      <div class="item-content col-lg-2 col-md-2 col-sm-3 col-xs-3">
+        <span>{{ cardItem?.updateder?.userName }}</span>
+      </div>
+      <div class="item-content col">
+        <span>{{ cardItem?.updateder?.fullName }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<confirm-modal #confirmModal></confirm-modal>
+<notice-modal #noticeModal></notice-modal>

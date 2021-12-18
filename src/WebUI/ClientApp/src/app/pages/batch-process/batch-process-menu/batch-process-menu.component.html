@@ -1,0 +1,26 @@
+<div class="batch-process">
+  <div class='col-md-6 first-column'>
+    <div class="card card-layout">
+      <img class="card-img-top" src="/assets/image/home/card.svg" alt="Cart">
+      <p class="card-text">{{ 'batchProcess.common.cardTitle' | translate }}</p>
+      <div class="card-body w-100">
+        <button [checkPermission]="permission.WF61" class="card-text btn w-100" [routerLink]="['/batch-process/add-card']">{{
+          'batchProcess.route.addCards' | translate }}</button>
+        <button [checkPermission]="permission.WF62" class="card-text btn w-100" [routerLink]="['/batch-process/edit-card']">{{
+          'batchProcess.route.editCards' | translate }}</button>
+        <button [checkPermission]="permission.WF63" class="card-text btn w-100" [routerLink]="['/batch-process/delete-card']">{{
+          'batchProcess.route.deleteCards' | translate }}</button>
+      </div>
+    </div>
+  </div>
+  <div class='col-md-6'>
+    <div class="card card-layout">
+      <img class="card-img-top" src="/assets/image/home/kid-club.svg" alt="Cart">
+      <p class="card-text">{{ 'batchProcess.common.kidTitle' | translate }}</p>
+      <div class="card-body w-100">
+        <button [checkPermission]="permission.WF64" class="card-text btn w-100" [routerLink]="['/batch-process/delete-kid-club']">{{
+          'batchProcess.route.deleteKid'| translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

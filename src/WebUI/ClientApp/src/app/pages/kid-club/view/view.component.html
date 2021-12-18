@@ -1,0 +1,133 @@
+<div class="card m-3">
+  <div class="card-header">
+    <div class="title-edit">
+      <span>{{'kidClub.common.viewTitle' | translate}}</span>
+      <div>
+        <button (click)="handleClickEdit()" [checkPermission]="permission.WF53" class="btn btn-header"><i class="bi bi-pencil-fill icon"></i></button>
+        <button (click)="goBack()" class="btn btn-header"><i class="bi bi-x-lg icon"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.memberNo' | translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{kid?.memberNo}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.name' | translate }}</span></div>
+          </div>
+          <div class="item-content col-lg-4 col-md-4 col-sm-6 col-xs-6"><span>{{kid?.parentLastName}}</span></div>
+          <div class="item-content col"><span>{{kid?.parentFirstName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.relationship' | translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{kid?.relationshipMemberText}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container wrap-text"><span class="item-title">{{ 'kidClub.email' | translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{kid?.email}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.dateOfBirth' | translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{kid?.registerKidClubDate | date : 'yyyy/MM/dd'}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.classification' | translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{kid?.requestTypeText}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.company' | translate }}</span></div>
+          </div>
+          <div class="item-content col-lg-4 col-md-4 col-sm-6 col-xs-6"><span>{{kid?.companyCode}}</span></div>
+          <div class="item-content col"><span>{{kid?.companyName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.store' | translate }}</span></div>
+          </div>
+          <div class="item-content col-lg-4 col-md-4 col-sm-6 col-xs-6"><span>{{kid?.storeCode}}</span></div>
+          <div class="item-content col"><span>{{kid?.storeName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.receptionist' | translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{kid?.picStoreName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.deviceCode' | translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{kid?.deviceCode}}</span></div>
+        </div>
+      </div>
+      <div class="col-5 offset-1">
+        <div class="row">
+          <div class="card kid-view-container w-100 ml-3 mr-3 mb-3">
+            <div class="card-header kid-view-header">
+              <span class="card-title">{{'kidClub.common.viewKidTitle' | translate}}</span>
+            </div>
+            <div class="card-body">
+              <div class="row p-1">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                  <div class="col-lg-10 item-container wrap-text"><span class="item-title">{{ 'kidClub.fullName' | translate }}</span></div>
+                </div>
+                <div class="item-content col-lg-4 col-md-4 col-sm-6 col-xs-6"><span>{{kid?.lastName}}</span></div>
+                <div class="item-content col"><span>{{kid?.firstName}}</span></div>
+              </div>
+              <div class="row p-1">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                  <div class="col-lg-10 item-container wrap-text"><span class="item-title">{{ 'kidClub.friganaName' | translate }}</span></div>
+                </div>
+                <div class="item-content col-lg-4 col-md-4 col-sm-6 col-xs-6"><span>{{kid?.furiganaLastName}}</span></div>
+                <div class="item-content col"><span>{{kid?.furiganaFirstName}}</span></div>
+              </div>
+              <div class="row p-1">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                  <div class="col-lg-10 item-container wrap-text"><span class="item-title">{{ 'kidClub.dateOfBirthKid' | translate }}</span></div>
+                </div>
+                <div class="item-content col"><span>{{kid?.dateOfBirth | date : 'yyyy/MM/dd'}}</span></div>
+              </div>
+              <div class="row p-1">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                  <div class="col-lg-10 item-container wrap-text"><span class="item-title">{{ 'kidClub.sex' | translate }}</span></div>
+                </div>
+                <div class="item-content col"><span>{{kid?.sexTypeText}}</span></div>
+              </div>
+              <div class="row p-1">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                  <div class="col-lg-10 item-container wrap-text"><span class="item-title">{{ 'kidClub.kidStatus' | translate }}</span></div>
+                </div>
+                <div class="item-content col"><span>{{kid?.isLivingWithParentText}}</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 item-container"><span class="item-title">{{ 'kidClub.remark' | translate }}</span></div>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-6">
+            <div class="item-content col text-area-break-line"><span class="w-100">{{kid?.remark}}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<notice-modal #noticeModal></notice-modal>

@@ -1,0 +1,50 @@
+.logo-container {
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  width: auto;
+
+  .logo {
+    padding: 0 1.25rem;
+    font-size: 1.75rem;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.icon-breadcrumb {
+  width: 25px;
+}
+
+.home-class {
+  cursor: pointer;
+}
+
+.home-title {
+  align-items: baseline;
+}
+
+.icon-size {
+  font-size: 1.5rem;
+}
+
+::ng-deep .xng-breadcrumb-trail {
+  margin-bottom: 0px;
+}
+
+.breadcrumb-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

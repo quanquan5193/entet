@@ -1,0 +1,51 @@
+<div *ngIf="rowData.length == 0" class="container-table w-100">
+  <div *ngIf="!isInitGrid" style="color: red;">
+    {{ 'system.commonGrid.noRecord01' | translate}}
+  </div>
+  <div *ngIf="isInitGrid">
+    {{ 'system.commonGrid.noRecord02' | translate}}
+  </div>
+</div>
+<div class="container-table w-100">
+  <div class="row align-items-center ml-0 mr-0" *ngIf="rowData.length > 0">
+    <div class="col-sm page-per-total">
+      <!-- {{recordsPerPage > totalRecords ? totalRecords : recordsPerPage}}/{{totalRecords
+      | number:'1.0':'en-US'}} {{ 'system.commonGrid.displayItem' | translate}} -->
+
+      {{totalRecords | number:'1.0':'en-US'}}{{ 'system.commonGrid.displayItem01' | translate}}{{recordsPerPage * (page
+      - 1) + 1}}-{{ page ==
+      math.ceil(totalRecords/recordsPerPage) ? totalRecords : recordsPerPage * page}}{{
+      'system.commonGrid.displayItem02' | translate}}
+    </div>
+    <div class="col-sm text-center">
+      <ngb-pagination class="d-flex justify-content-center" [collectionSize]="totalRecords" [pageSize]="recordsPerPage" [(page)]="page" [maxSize]="3"
+        [boundaryLinks]="true" (pageChange)="pageChangeEvent.emit($event)">
+        <ng-template ngbPaginationFirst>
+          <fa-icon [icon]="first"></fa-icon>
+        </ng-template>
+        <ng-template ngbPaginationLast>
+          <fa-icon [icon]="last"></fa-icon>
+        </ng-template>
+        <ng-template ngbPaginationPrevious>
+          <fa-icon [icon]="prev"></fa-icon>
+        </ng-template>
+        <ng-template ngbPaginationNext>
+          <fa-icon [icon]="next"></fa-icon>
+        </ng-template>
+      </ngb-pagination>
+    </div>
+    <div class="col-sm text-right">
+      <button *ngIf="isEnableExport" [checkPermission]="canDownload" class="btn btn-light btn-export-csv"
+        (click)="exportClickedEvent.emit('Clicked')">{{ 'system.commonGrid.exportCsv' | translate}}
+        <i class="bi bi-arrow-down-square ml-3"></i>
+      </button>
+    </div>
+  </div>
+  <div class="row w-100 ml-0 mr-0" [style.height]="rowData.length > 0 ? height : 50" [ngStyle]="{height: rowData.length > 0 ? height : '50px' }">
+    <ag-grid-angular #agGrid class="ag-theme-alpine" style="width: 100%; height: 100%;" suppressCellSelection=true
+      [overlayLoadingTemplate]="overlayLoadingTemplate" [overlayNoRowsTemplate]="noRowsTemplate" [defaultColDef]="defaultColDef" [rowData]="rowData"
+      [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" (sortChanged)="onSort($event)" (rowDoubleClicked)="onDoubleClickRow($event.data)"
+      (rowClicked)="rowClickEvent.emit($event.data)">
+    </ag-grid-angular>
+  </div>
+</div>

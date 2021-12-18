@@ -1,0 +1,270 @@
+.title-edit {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-container {
+  background: #f2f2f2;
+  border-radius: 50px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.item-container-editable {
+  border-radius: 50px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.item-title {
+  color: #727272;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.item-title-editable {
+  color: #2f3f4e;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.item-content {
+  display: flex;
+  align-items: baseline;
+  padding-top: 5px;
+  font-weight: bold;
+  word-break: break-all;
+  font-size: 20px;
+}
+
+.item-content-editable {
+  display: flex;
+  align-items: baseline;
+  padding-top: 2px;
+  font-weight: bold;
+  word-break: break-all;
+  font-size: 17px;
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+.btn-header {
+  border-radius: 50%;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.btn-header:hover {
+  background: #bcbcbc;
+  color: #ffffff;
+}
+
+.radio-container {
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 15px;
+}
+
+.card-header-editable {
+  background: #484848;
+}
+
+.card-body-editable {
+  background: #eff0f4;
+}
+
+.card-title-editable {
+  color: #ffffff;
+}
+
+.search-table {
+  background: #a7a7a7;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.search-area {
+  background: #a7a7a7;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.edit-area {
+  background: #449ac1;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.search-text {
+  color: #ffffff;
+}
+
+.display-table {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+// Date Picker Range CSS
+.form-group.hidden {
+  width: 0;
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range,
+.custom-day:hover {
+  background-color: rgb(2, 117, 216);
+  color: white;
+}
+.custom-day.faded {
+  background-color: rgba(2, 117, 216, 0.5);
+}
+
+// End Date Picker Range CSS
+.btn {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-confirm {
+  background: #555555;
+  border: #bebebe 1px;
+  border-radius: 5px;
+  color: #ffffff;
+  //min-width: 100px;
+  height: 100%;
+  box-shadow: 0 0 0 0.15rem #bebebe;
+}
+
+.btn-confirm:hover {
+  background: #fd9d27;
+}
+
+.btn-confirm:focus {
+  box-shadow: 0 0 0 0.2rem #bebebe;
+}
+
+.btn-delete {
+  background: #555555;
+  border: #bebebe 1px;
+  border-radius: 5px;
+  color: #ffffff;
+  min-width: 100px;
+  height: 100%;
+}
+
+.btn-delete:hover {
+  background: #ff0000;
+}
+
+.btn-delete:focus {
+  box-shadow: 0 0 0 0.2rem #bebebe;
+}
+
+.btn-primary {
+  background: #555555;
+  border: #bebebe 1px;
+  border-radius: 5px;
+  color: #ffffff;
+  min-width: 100px;
+  height: 100%;
+}
+
+.btn-primary:hover {
+  background: #1070c3;
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem #bebebe;
+}
+
+.btn-calendar {
+  background: #ffffff;
+  border-color: #ced4da;
+}
+
+.btn-calendar:hover {
+  background: #5f5f5f;
+}
+
+.btn-calendar:focus {
+  box-shadow: 0 0 0 0.2rem #bebebe;
+}
+
+.btn-disable {
+  cursor: not-allowed;
+}
+
+.btn-confirm:disabled:hover {
+  background-color: gray !important;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem #bebebe;
+  border-color: #bebebe;
+}
+
+.separate-dash {
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.ng-dirty.ng-invalid:not(form) {
+  border: 2px solid red;
+}
+
+.wrap-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.padding-left-0 {
+  padding-left: 0px;
+}
+
+.message-error {
+  font-size: 80%;
+  color: red;
+}
+
+.error-container {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.text-area-break-line {
+  white-space: pre-line;
+}

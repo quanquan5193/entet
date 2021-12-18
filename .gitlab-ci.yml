@@ -1,0 +1,13 @@
+#update dotnetsdk5-node-sonar:5.1
+include:
+  - project: devops/cicd
+    ref: stable
+    file: templates/dotnet/sonar.yml
+.only-default: &only-default
+  only:
+    - master
+    - develop
+
+.sonar_branch_config:
+  <<: *only-default
+

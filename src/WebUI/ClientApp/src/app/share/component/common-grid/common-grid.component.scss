@@ -1,0 +1,90 @@
+::ng-deep .pagination .page-item {
+  margin: 0 2px;
+  min-width: 37px;
+  height: 37px;
+
+  .page-link {
+    border-top-style: none;
+    border-bottom-style: none;
+    padding: 8px 0;
+    background-color: #ffffff;
+    color: #acacac;
+    font-size: 17px;
+  }
+}
+
+::ng-deep .pagination .page-item.active {
+  .page-link {
+    border-color: #ffffff;
+    font-weight: bolder;
+    color: #6a6a6a;
+  }
+}
+
+::ng-deep .ag-theme-alpine .ag-row-odd,
+::ng-deep .ag-theme-alpine .ag-header {
+  background-color: #ffffff;
+  border-bottom-color: #dde2eb;
+}
+
+::ng-deep .ag-theme-alpine .ag-row-hover {
+  background-color: var(--ag-row-hover-color, #ffef2b);
+}
+
+::ng-deep .ag-theme-alpine .ag-row-focus {
+  background-color: #ffef2b;
+}
+
+::ng-deep .ag-header,
+::ng-deep .ag-row {
+  margin: 0 20px;
+  .ag-header-cell-text,
+  .ag-cell {
+    font-size: 17px;
+    color: #2f3f4e;
+    text-align: center;
+  }
+}
+
+.btn-export-csv {
+  border-radius: 1.25rem;
+}
+
+.btn-export-csv:hover {
+  background: #fff577;
+}
+
+.container-table {
+  font-size: 17px;
+  .row {
+    height: 100%;
+    min-height: 55px;
+    background-color: #d8d8d8;
+  }
+}
+
+.page-per-total {
+  padding-top: 5px;
+  padding-left: 30px;
+}
+
+::ng-deep.pagination .page-item.active .page-link {
+  color: #2f3f4e;
+}
+::ng-deep.pagination .page-item .page-link {
+  color: #6a6a6a;
+}
+::ng-deep.pagination .page-item.disabled .page-link {
+  color: #acacac;
+}
+::ng-deep.pagination {
+  margin-bottom: 0px;
+}
+
+::ng-deep .ag-theme-alpine {
+  font-family: "Hiragino Kaku Gothic Pro" !important;
+}
+
+::ng-deep .ag-header-cell-label {
+  justify-content: center;
+}

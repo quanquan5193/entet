@@ -1,0 +1,12 @@
+<ng-template #modal>
+  <div class="modal-body modal">
+    <button class="btn-close close" (click)="dismiss()">
+      <i class="bi bi-x" style="color: white; font-size: 2.5rem;"></i>
+    </button>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="text-content col-md-12" [innerHTML]="content"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,30 @@
+<div class="search-table">
+  <div class="row search-row">
+    <div class="col-1 search-text p-0 wrap-text">{{ 'systemManagement.device.companyCode' | translate}}</div>
+    <div class="col-2"><input type="text" class="form-control" onlyHalfWidth="true" maxlength="4" [(ngModel)]="companyCode"
+        placeholder="{{ 'systemManagement.device.companyCodePlaceholder' | translate}}"></div>
+    <div class="col-3"><input type="text" class="form-control" [(ngModel)]="companyName"
+        placeholder="{{ 'systemManagement.device.companyNamePlaceholder' | translate}}"></div>
+    <div class="col-1 search-text p-0 wrap-text">{{ 'systemManagement.device.deviceCode' | translate}}</div>
+    <div class="col-2"><input type="text" class="form-control" (change)="deviceCode = toASCII($event)" maxlength="20" [(ngModel)]="deviceCode"
+        placeholder="{{ 'systemManagement.device.deviceCodePlaceholder' | translate}}"></div>
+    <div class="col-3 d-flex">
+      <span class="col-6">
+        <button [checkPermission]="permission.WF931" class="btn btn-confirm w-100" (click)="page = 1;handleSearchData()">{{
+          'systemManagement.device.btnSearch' | translate}}</button>
+      </span>
+      <span class="separate-dash"></span>
+      <span class="col-6">
+        <button [checkPermission]="permission.WF933" (click)="handleClickAddNew()" class="btn btn-confirm w-100">{{
+          'systemManagement.device.btnCreateDevice' | translate}}</button>
+      </span>
+    </div>
+  </div>
+</div>
+<div class="display-table">
+  <common-grid #commonGrid [checkPermission]="permission.WF932" height="500px" [rowData]="rowData" [isInitGrid]="isInitGrid"
+    [canView]="'permission.WF935'" [columnDefs]="columnDefs" [(page)]="page" [totalRecords]="totalRecords" [recordsPerPage]="recordsPerPage"
+    (sortEvent)="onSortCommon($event)" (rowDoubleClickEvent)="onRowDoubleClickCommon($event)" (rowClickEvent)="onRowClickCommon($event)"
+    (pageChangeEvent)="onPageChangeEvent($event)" (exportClickedEvent)="onExportClickedEvent($event)" [isEnableExport]="isShowButtonExport">
+  </common-grid>
+</div>

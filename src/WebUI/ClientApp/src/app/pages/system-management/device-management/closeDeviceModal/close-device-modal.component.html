@@ -1,0 +1,17 @@
+<ng-template #modal>
+  <div class="modal-body modal">
+    <div></div>
+    <div *ngIf="option && option.length" class="text-content">
+      <div class="content" *ngFor="let line of option">{{ line }}</div>
+    </div>
+    <div *ngIf="firstNotice || secondNotice" class="text-content mt-4">
+      <div *ngIf="firstNotice" class="content">{{ firstNotice }}</div>
+      <div *ngIf="secondNotice" class="notice mt-4">{{ secondNotice }}</div>
+    </div>
+    <div>
+      <button class="btn btn-modal" (click)="close()">
+        {{ 'system.button.confirm' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

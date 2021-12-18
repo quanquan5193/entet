@@ -1,0 +1,60 @@
+.card-layout {
+  cursor: pointer;
+  border-radius: 15px;
+  align-items: center;
+  padding-top: 5vh;
+  height: 27vh;
+  width: 27vh;
+}
+
+.card-layout:hover {
+  background-color: #fffbc9;
+}
+
+.card-layout > img {
+  width: 50%;
+  height: 50%;
+}
+
+.card-layout > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 40%;
+}
+
+.home {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home > div > div {
+  margin: 1rem;
+}
+
+.empty-div {
+  width: 25%;
+}
+
+.menu-item {
+  //Each menu item width 27vh and margin 32 (for left + right)
+  width: calc((27vh + 32px) * 3);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+
+.empty-element {
+  height: 8rem;
+}
+
+.main-element {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //68px: Header and Breadcrumb height
+  height: calc(100vh - 68px);
+}

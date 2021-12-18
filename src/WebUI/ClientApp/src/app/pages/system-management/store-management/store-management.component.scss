@@ -1,0 +1,101 @@
+@import "./../../pages.component.scss";
+
+.search-row-2 {
+  background-color: #4a4a4a;
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.menu-row-1 {
+  color: white;
+}
+
+menu-row-2 {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+.input-name {
+  background-color: white;
+  color: #000;
+}
+
+.input-code {
+  border: 1px solid white;
+}
+
+.input-row2-code {
+  background-color: #4a4a4a;
+  color: #fff;
+  &::placeholder {
+    color: #fff;
+  }
+}
+
+input-row2-name {
+  background-color: white;
+  color: #4a4a4a;
+  &::placeholder {
+    color: #fff;
+  }
+}
+
+.btn-search {
+  background-color: #2c2c2c;
+  width: 120%;
+}
+
+.search-row {
+  align-items: center;
+  text-align: center;
+}
+
+.button-group {
+  .child-button {
+    min-width: 0 !important;
+    padding-right: 2px !important;
+    padding-left: 2px !important;
+    background-color: #2c2c2c;
+    width: 100%;
+    border: 1px solid white;
+    &:hover {
+      border: none;
+      background-color: #fd9d27;
+    }
+  }
+}
+
+//====//
+.create-input {
+  margin-right: 1.5%;
+  width: 7.5%;
+  button {
+    width: 100%;
+  }
+}
+.create-input:first-child {
+  padding-left: 15px;
+  width: 7%;
+}
+.create-input:last-child {
+  margin-right: unset;
+}
+.create-input.w-18 {
+  width: 18%;
+}
+.create-input.w-14 {
+  width: 14%;
+}
+.create-input.w-26 {
+  width: 26%;
+}
+.create-input.w-10 {
+  width: 10%;
+}
+.create-input.w-7 {
+  width: 7.5%;
+}
+.create-input.w-5 {
+  width: 5.5%;
+}

@@ -1,0 +1,14 @@
+@import "./../../../pages.component.scss";
+
+.input-name{
+  background-color: #5C5C5C;
+  color: #fff;
+  &::placeholder {
+    color: #fff;
+  }
+}
+
+.search-row{
+  align-items: center;
+  text-align: center;
+}

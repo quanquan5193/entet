@@ -1,0 +1,145 @@
+@import "./../../pages.component.scss";
+@import "./../../../share/component/spinner/spinner.component.scss";
+
+.menu-group {
+  background: #a6a6a6;
+  padding: 1rem;
+}
+
+.button-group {
+  padding: 1rem;
+  background: #4a4a4a;
+}
+
+.data-group {
+  padding-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.btn-not-select {
+  background: #ffffff;
+}
+
+.btn-selected {
+  background: #fff2f2;
+}
+
+.btn-change-type {
+  width: 100%;
+  background: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  padding-right: 0px;
+  margin-right: 1rem;
+}
+
+.btn-filter {
+  width: 100%;
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+  padding-right: 0px;
+}
+
+.btn-graph {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.btn-graph:hover {
+  background: #bcbcbc;
+  color: #ffffff;
+}
+
+.btn-graph-download {
+  background: #4a4a4a;
+  color: #ffffff;
+}
+
+.btn-graph-download:hover {
+  background: #fd9d27;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-btn {
+  text-align: start;
+}
+
+.separate-dash-90 {
+  transform: rotate(-90deg);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.summary {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: -15px;
+  margin-right: -15px;
+  height: 60px;
+}
+
+.summary-create {
+  background: #f4a261;
+}
+
+.summary-switch {
+  background: #2a9d8f;
+}
+
+.summary-kids {
+  background: #2b7ccc;
+}
+
+.summary-other {
+  background: #696969;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #ffffff;
+  width: 100%;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.total {
+  font-size: 40px;
+}
+
+.graph {
+  max-width: 100%;
+  overflow: auto;
+}
+
+.invisible-div {
+  display: block !important;
+  line-height: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  zoom: 1 !important;
+  padding: 0 !important;
+  border: none;
+  border: 0 !important;
+  margin: 0 !important;
+}
+
+.div-chart-export {
+  width: 1150px;
+  height: 595px;
+  padding: 5px;
+}

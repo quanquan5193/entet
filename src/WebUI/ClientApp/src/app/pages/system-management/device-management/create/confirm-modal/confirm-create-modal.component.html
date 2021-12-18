@@ -1,0 +1,36 @@
+<ng-template #modal>
+  <div class="modal-body modal dialog-container">
+    <div class="title">{{'deviceManagement.confirmDialog.title' | translate }}</div>
+    <div class="content-container">
+      <div class="text-content"><span>{{'deviceManagement.deviceCode' | translate }}: </span><span class="content">{{
+          this.deviceEntity.deviceCode
+          }}</span></div>
+      <div class="text-content"><span>{{'deviceManagement.company' | translate }}: </span><span class="content">{{
+          this.deviceEntity.companyCode
+          }}</span><span> {{companyName}}</span></div>
+      <div class="text-content"><span>{{'deviceManagement.store' | translate }}: </span><span class="content">{{
+          this.deviceEntity.storeCode
+          }}</span><span> {{storeName}}</span></div>
+      <div class="text-content"><span>{{'deviceManagement.status' | translate }}: </span><span class="content">{{
+          deviceStatus
+          }}</span></div>
+      <div class="text-content"><span>{{'deviceManagement.isAutoLock' | translate }}: </span><span class="content">{{
+          deviceAutoLockStatus
+          }}</span></div>
+      <div class="text-content"><span>{{'deviceManagement.lat' | translate }}: </span><span class="content">{{
+          this.deviceEntity.lat
+          }}</span></div>
+      <div class="text-content"><span>{{'deviceManagement.long' | translate }}: </span><span class="content">{{
+          this.deviceEntity.long
+          }}</span></div>
+    </div>
+    <div class="confirm-button">
+      <button class="btn btn-modal" (click)="confirm()">
+        {{ 'system.button.confirm' | translate }}
+      </button>
+      <button class="btn btn-modal" (click)="close()">
+        {{ 'system.button.close' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

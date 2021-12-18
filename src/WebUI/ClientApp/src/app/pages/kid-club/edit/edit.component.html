@@ -1,0 +1,238 @@
+<div class="card m-3">
+  <div class="card-header">
+    <div class="title-edit">
+      <span>{{'kidClub.common.editTitle' | translate}}</span>
+      <div>
+        <button [checkPermission]="permission.WF53" *ngIf="!(kid.memberNo && kid.parentLastName && kid.parentFirstName && kid.lastName && kid.firstName && kid.furiganaLastName
+                                      && kid.furiganaFirstName && kid.dateOfBirth)" disabled class="btn btn-header btn-disable">
+          <i class="bi bi-check-lg icon"></i></button>
+        <button [checkPermission]="permission.WF53" *ngIf="(kid.memberNo && kid.parentLastName && kid.parentFirstName && kid.lastName && kid.firstName && kid.furiganaLastName
+                              && kid.furiganaFirstName && kid.dateOfBirth)" (click)="onClickConfirm()" class="btn btn-header">
+          <i class="bi bi-check-lg icon"></i></button>
+        <button (click)="onClickDelete()" [checkPermission]="permission.WF54" class="btn btn-header"><i class="bi bi-trash icon"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable">
+              <span class="item-title-editable">{{
+                'kidClub.memberNo' | translate }}</span>
+            </div>
+          </div>
+          <div class="item-content-editable col">
+            <input type="text" [(ngModel)]="kid.memberNo" onlyHalfWidth="true" maxlength="10" class="form-control" name="memberNo" #memberNo='ngModel'
+              (focus)="setElementDirty(memberNo)">
+          </div>
+        </div>
+
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{ 'kidClub.name' | translate }}</span></div>
+          </div>
+          <div class="item-content-editable col-lg-4 col-md-4 col-sm-4 col-xs-3">
+            <input type="text" [(ngModel)]="kid.parentLastName" maxlength="30" class="form-control" name="parentLastName" #parentLastName='ngModel'
+              (focus)="setElementDirty(parentLastName)">
+          </div>
+          <div class="item-content-editable col-lg-4 col-md-4 col-sm-4 col-xs-3">
+            <input type="text" [(ngModel)]="kid.parentFirstName" maxlength="30" class="form-control" name="parentFirstName" #parentFirstName='ngModel'
+              (focus)="setElementDirty(parentFirstName)">
+          </div>
+        </div>
+
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+                'kidClub.relationship' | translate }}</span></div>
+          </div>
+          <div class="item-content-editable col">
+            <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" #statusSelect [items]="listRelation"
+              [(ngModel)]="kid.relationshipMember" [searchable]="false" [clearable]="false" class="w-100">
+              <ng-template ng-label-tmp let-item="item">
+                {{ handleFilterRelation(item) }}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+                {{ handleFilterRelation(item) }}
+              </ng-template>
+            </ng-select>
+          </div>
+
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable wrap-text"><span class="item-title-editable ">{{ 'kidClub.email' | translate
+                }}</span></div>
+          </div>
+          <div class="item-content-editable col">
+            <input type="text" [(ngModel)]="kid.email" maxlength="200" class="form-control" name="email" #email='ngModel' (focus)="setElementDirty(email)">
+          </div>
+        </div>
+
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.dateOfBirth' | translate
+                }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{kid?.registerKidClubDate | date : 'yyyy/MM/dd'}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.classification' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{kid?.requestTypeText}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.company' | translate
+                }}</span></div>
+          </div>
+          <div class="item-content col-lg-4 col-md-4 col-sm-6 col-xs-6"><span>{{kid?.companyCode}}</span></div>
+          <div class="item-content col"><span>{{kid?.companyName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.store' | translate
+                }}</span></div>
+          </div>
+          <div class="item-content col-lg-4 col-md-4 col-sm-6 col-xs-6"><span>{{kid?.storeCode}}</span></div>
+          <div class="item-content col"><span>{{kid?.storeName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+                'kidClub.receptionist' | translate }}</span></div>
+          </div>
+          <div class="item-content-editable col">
+            <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" #pic [items]="listPIC" bindLabel="picName" bindValue="id"
+              [(ngModel)]="kid.picStoreId" [clearable]="false" class="w-100">
+            </ng-select>
+
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'kidClub.deviceCode' | translate
+                }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{kid?.deviceCode}}</span></div>
+        </div>
+      </div>
+      <div class="col-5 offset-1">
+        <div class="row">
+          <div class="card w-100 ml-3 mr-3 mb-3">
+            <div class="card-header card-header-editable">
+              <span class="card-title-editable">{{'kidClub.view.childTitle' | translate}}</span>
+            </div>
+            <div class="card-body card-body-editable">
+              <div class="row p-1">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                  <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable wrap-text">{{
+                      'kidClub.fullName' | translate }}</span></div>
+                </div>
+                <div class="item-content-editable col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                  <input [(ngModel)]="kid.lastName" type="text" maxlength="30" class="form-control" name="lastName" #lastName='ngModel'
+                    (focus)="setElementDirty(lastName)">
+                </div>
+                <div class="item-content-editable col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                  <input [(ngModel)]="kid.firstName" type="text" maxlength="30" class="form-control" name="firstName" #firstName='ngModel'
+                    (focus)="setElementDirty(firstName)">
+                </div>
+              </div>
+
+              <div class="row p-1">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                  <div class="col-lg-10 offset-1 item-container-editable wrap-text"><span class="item-title-editable">{{
+                      'kidClub.friganaName' | translate }}</span></div>
+                </div>
+                <div class="item-content-editable col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                  <input [(ngModel)]="kid.furiganaLastName" maxlength="30" type="text" class="form-control" name="furiganaLastName" #furiganaLastName='ngModel'
+                    (focus)="setElementDirty(furiganaLastName)">
+                </div>
+                <div class="item-content-editable col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                  <input [(ngModel)]="kid.furiganaFirstName" maxlength="30" type="text" class="form-control" name="furiganaFirstName" #furiganaFirstName='ngModel'
+                    (focus)="setElementDirty(furiganaFirstName)">
+                </div>
+              </div>
+
+              <div class="row p-1">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                  <div class="col-lg-10 offset-1 item-container-editable wrap-text"><span class="item-title-editable">{{
+                      'kidClub.dateOfBirthKid' | translate }}</span></div>
+                </div>
+                <div class="item-content-editable col">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-MM-dd" name="dp" [(ngModel)]="kid.dateOfBirth" (blur)="validateDate($event)"
+                      ngbDatepicker #d="ngbDatepicker" name="dateOfBirth" #dateOfBirth='ngModel' (focus)="setElementDirty(dateOfBirth)">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary btn-calendar calendar" (click)="d.toggle()" type="button"><i
+                          class="bi bi-calendar-date"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row p-1">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                  <div class="col-lg-10 offset-1 item-container-editable wrap-text"><span class="item-title-editable">{{
+                      'kidClub.sex' | translate }}</span></div>
+                </div>
+                <div class="item-content-editable col">
+                  <div class="btn-group radio-container" role="group">
+                    <div class="col-4 padding-left-0">
+                      <input type="radio" name="sex" id="male" autocomplete="off" value=1 (change)='kid.sex= $event.target.value'
+                        [checked]="kid.sex === 1">
+                      <label class="mb-0 ml-2" for="male">{{ 'historyInquiry.male' | translate }}</label>
+                    </div>
+                    <div class="col-4 padding-left-0">
+                      <input type="radio" name="sex" id="female" autocomplete="off" value=2 (change)='kid.sex= $event.target.value'
+                        [checked]="kid.sex === 2">
+                      <label class="mb-0 ml-2" for="female">{{ 'historyInquiry.female' | translate }}</label>
+                    </div>
+                    <div class="col-4 padding-left-0 wrap-text">
+                      <input type="radio" name="sex" id="other" autocomplete="off" value=3 (change)='kid.sex= $event.target.value'
+                        [checked]="kid.sex === 3">
+                      <label class="mb-0 ml-2" for="other">{{ 'historyInquiry.other' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row p-1">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+                  <div class="col-lg-10 offset-1 item-container-editable wrap-text"><span class="item-title-editable">{{
+                      'kidClub.kidStatus' | translate }}</span></div>
+                </div>
+                <div class="item-content-editable col">
+                  <div class="btn-group radio-container" role="group">
+                    <div class="col-4 padding-left-0"><input type="radio" name="live" id="liveTogether" value="true"
+                        (change)='kid.isLivingWithParent= $event.target.value' [checked]="kid.isLivingWithParent === true" autocomplete="off">
+                      <label class="mb-0 ml-2" for="liveTogether">{{ 'kidClub.liveTogether' | translate }}</label>
+                    </div>
+                    <div class="col-4 padding-left-0"><input type="radio" name="live" id="notLiveTogether" value="false"
+                        (change)='kid.isLivingWithParent= $event.target.value' [checked]="kid.isLivingWithParent === false" autocomplete="off">
+                      <label class="mb-0 ml-2" for="notLiveTogether">{{ 'kidClub.notLiveTogether' | translate }}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+                'kidClub.remark' | translate }}</span></div>
+          </div>
+          <div class="item-content-editable col"><textarea [(ngModel)]="kid.remark" maxlength="500" class="form-control w-100" rows="4"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<confirm-modal #confirmModal></confirm-modal>
+<notice-modal #noticeModal></notice-modal>

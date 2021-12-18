@@ -1,0 +1,123 @@
+<div class="search-table">
+  <div class="row search-row">
+    <div class="search-text search-row-item-width-10 text-padding-top-05 wrap-text">{{ 'systemManagement.user.company' |
+      translate
+      }}</div>
+    <div class="search-row-item-input search-row-item-width-15">
+      <input type="text" class="form-control" onlyHalfWidth="true" maxlength="4" [(ngModel)]="companyCodeSearch"
+        placeholder="{{ 'systemManagement.user.companyCodePlaceholder' | translate }}">
+    </div>
+    <div class="search-row-item-input search-row-item-width-20">
+      <input type="text" class="form-control input-name" [(ngModel)]="companyNameSearch"
+        placeholder="{{ 'systemManagement.user.companyNamePlaceholder' | translate }}">
+    </div>
+    <div class="search-text search-row-item-label-right search-row-item-width-10 text-padding-top-05 wrap-text">{{
+      'systemManagement.user.idSearch' | translate }}</div>
+    <div class="search-row-item-input search-row-item-width-10">
+      <input type="text" class="form-control" [(ngModel)]="userNameSearch" placeholder="">
+    </div>
+    <div class="search-text search-row-item-label-center search-row-item-width-10 text-padding-top-05 wrap-text">{{
+      'systemManagement.user.fullnameSearch' | translate }}</div>
+    <div class="search-row-item-input search-row-item-width-15">
+      <input type="text" class="form-control" [(ngModel)]="fullNameSearch" placeholder="">
+    </div>
+    <div class="search-row-item-width-10">
+      <button class="btn btn-confirm w-100" (click)="handleSearch()" [checkPermission]="permissionRole.WF941">{{
+        'systemManagement.user.btnSearch' | translate }}</button>
+    </div>
+  </div>
+</div>
+<div class="search-table" [checkPermission]="permissionRole.WF943">
+  <div class="row search-row">
+    <div class="search-text search-row-item-width-10 text-padding-top-05 wrap-text">{{ 'systemManagement.user.company' |
+      translate
+      }}</div>
+    <div class="search-row-item-input search-row-item-width-15">
+      <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" #company
+        placeholder="{{ 'systemManagement.user.companyCodePlaceholder' | translate }}" [items]="listCompanies" bindLabel="companyCode"
+        bindValue="companyCode" [(ngModel)]="selectedItem.companyCode" [clearable]="true" class="form-control p-0" (clear)="handleClearCompany()"
+        (change)="companiesChanged($event)" name="companyCode" #companyCode='ngModel'
+        (focus)="handleInputFocus(companyCode,'companyCode');setInputPristine(companyCode);">
+      </ng-select>
+    </div>
+    <div class="search-row-item-input search-row-item-width-20">
+      <input type="text" class="form-control input-name" [ngModel]="selectedCompany"
+        placeholder="{{ 'systemManagement.user.companyNamePlaceholder' | translate }}" readonly>
+    </div>
+    <div class="search-text search-row-item-label-right search-row-item-width-10 text-padding-top-05 wrap-text">{{
+      'systemManagement.user.store' | translate }}</div>
+    <div class="search-row-item-input search-row-item-width-10">
+      <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" #store
+        placeholder="{{ 'systemManagement.user.storeCodePlaceholder' | translate }}" [items]="listStores" bindLabel="storeCode" bindValue="storeCode"
+        [(ngModel)]="selectedItem.storeCode" [clearable]="true" class="form-control p-0" (change)="storesChanged($event)"
+        (ngClass)="storeCode.valid && 'ng-invalid'" name="storeCode" #storeCode='ngModel'
+        (focus)="handleInputFocus(storeCode,'storeCode');setInputPristine(storeCode);" (clear)="handleClearStore()">
+      </ng-select>
+    </div>
+    <div class="search-row-item-input search-row-item-width-20">
+      <input type="text" class="form-control" [ngModel]="selectedStore" placeholder="{{ 'systemManagement.user.storeNamePlaceholder' | translate }}"
+        readonly>
+    </div>
+    <div class="search-text search-row-item-label-right search-row-item-width-5 text-padding-top-05 wrap-text">{{
+      'systemManagement.user.permission' | translate }}</div>
+    <div class="search-row-item-input search-row-item-width-10">
+      <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}"
+        placeholder="{{ 'systemManagement.user.permissionPlaceholder' | translate }}" [items]="listRoles" [(ngModel)]="selectedItem.permission"
+        bindValue="id" bindLabel="name" [clearable]="true" class="form-control p-0" (ngClass)="permission.valid && 'ng-invalid'" name="permission"
+        #permission='ngModel' (focus)="handleInputFocus(permission,'permission');setInputPristine(permission);">
+      </ng-select>
+    </div>
+  </div>
+</div>
+<div class="search-table" [checkPermission]="permissionRole.WF943">
+  <div class="row">
+    <div class="search-text search-row-item-input search-row-item-width-13 wrap-text">{{ 'systemManagement.user.idSearch' | translate }}</div>
+    <div class="search-text search-row-item-input search-row-item-width-25 wrap-text">{{ 'systemManagement.user.fullnameSearch' | translate }}</div>
+    <div class="search-text search-row-item-input search-row-item-width-15 wrap-text">{{ 'systemManagement.user.password' | translate }}</div>
+    <div class="search-text search-row-item-input search-row-item-width-15 wrap-text">{{ 'systemManagement.user.password' | translate }}</div>
+    <div class="search-text search-row-item-input search-row-item-width-10"></div>
+    <div class="search-text search-row-item-input search-row-item-width-10"></div>
+    <div class="search-text search-row-item-input search-row-item-width-10"></div>
+  </div>
+  <div class="row mb-2">
+    <div class="search-row-item-input search-row-item-width-13">
+      <input type="text" placeholder="" class="form-control" [(ngModel)]="selectedItem.userName"
+        name="loginid" #loginid='ngModel' (focus)="handleInputFocus(loginid,'loginid');setInputPristine(loginid);">
+    </div>
+    <div class="search-row-item-input search-row-item-width-25">
+      <input type="text" placeholder="" class="form-control" [(ngModel)]="selectedItem.fullName" (ngClass)="fullName.valid && 'ng-invalid'"
+        name="fullName" #fullName='ngModel' (focus)="handleInputFocus(fullName,'fullName');setInputPristine(fullName);">
+    </div>
+    <div class="search-row-item-input search-row-item-width-15">
+      <input type="password" autocomplete="new-password" class="form-control" [(ngModel)]="userPwd" (ngClass)="crtUserPwd.valid && 'ng-invalid'"
+        name="crtUserPwd" #crtUserPwd='ngModel' (focus)="handleInputFocus(crtUserPwd,'crtUserPwd');setInputPristine(crtUserPwd);">
+    </div>
+    <div class="search-row-item-input search-row-item-width-15">
+      <input type="password" class="form-control" [(ngModel)]="userConfirmPwd" #crtUserConfirmPwd='ngModel'
+        (focus)="setInputPristine(crtUserConfirmPwd);">
+    </div>
+    <div class="search-row-item-input search-row-item-width-8"> <button class="btn btn-confirm w-100"
+        [disabled]="selectedItem.id || !selectedItem.companyCode || !selectedItem.storeCode || !selectedItem.permission || !selectedItem.userName || !selectedItem.fullName || !userPwd || !userConfirmPwd"
+        (click)="handleSubmit()" [checkPermission]="permissionRole.WF943">{{ 'systemManagement.user.submit' | translate }}</button>
+    </div>
+    <div class="search-row-item-input search-row-item-width-8"> <button class="btn btn-confirm w-100"
+        [disabled]="selectedItem.id === null || selectedItem.id === undefined" (click)="handleSubmit()" [checkPermission]="permissionRole.WF944">{{
+        'systemManagement.user.update' | translate }}</button></div>
+    <div class="search-row-item-input search-row-item-width-8"> <button class="btn btn-confirm w-100"
+        [disabled]="selectedItem.id === null || selectedItem.id ===undefined" (click)="handleDelete()" [checkPermission]="permissionRole.WF944">{{
+        'systemManagement.user.delete' | translate }}</button></div>
+    <div class="search-row-item-input search-row-item-width-8"> <button class="btn btn-confirm w-100" (click)="handleClear()">{{
+        'systemManagement.user.reset' | translate }}</button>
+    </div>
+  </div>
+</div>
+<div class="display-table">
+  <common-grid [checkPermission]="permissionRole.WF942" [canView]="permissionRole.WF945" #commonGrid height="500px" [rowData]="rowData"
+    [isInitGrid]="isInitGrid" [columnDefs]="columnDefs" [(page)]="page" [totalRecords]="totalRecords" [recordsPerPage]="recordsPerPage"
+    (sortEvent)="onSortCommon($event)" (rowDoubleClickEvent)="onRowDoubleClickCommon($event)" (rowClickEvent)="onRowClickCommon($event)"
+    (pageChangeEvent)="onPageChangeEvent($event)" (exportClickedEvent)="onExportClickedEvent($event)" [isEnableExport]="false"></common-grid>
+</div>
+
+<confirm-create-user #confirmCreateUserModal></confirm-create-user>
+<confirm-modal #confirmModal></confirm-modal>
+<notice-modal #noticeModal></notice-modal>

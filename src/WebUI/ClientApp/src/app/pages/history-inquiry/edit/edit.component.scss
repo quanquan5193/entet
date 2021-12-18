@@ -1,0 +1,38 @@
+@import "./../../pages.component.scss";
+
+.title-inquiry-history {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.zipcode-sec-1 {
+  width: 20%;
+  float: left;
+}
+.zipcode-sec-2 {
+  width: 20px;
+  float: left;
+  margin: 0 2%;
+}
+.zipcode-sec-3 {
+  width: 40%;
+  float: left;
+}
+.zipcode-sec-4 {
+  width: 30%;
+  float: right;
+  button {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 38px;
+  }
+}
+.history-sex-edit {
+  padding-top: 7px;
+}
+.item-content-editable {
+  ui-switch {
+    padding-top: 10px;
+  }
+}

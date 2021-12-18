@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-header">
+    {{ 'batchProcess.common.uploadCard' | translate }}
+  </div>
+  <div class="card-body">
+    <div class="col-8 offset-2 mt-2">
+      <div class="row">
+        <input class="col-11" disabled [(ngModel)]="fileUploadName">
+        <div class="col-1">
+          <input id="fileUploadBtn" type="file" class="d-none" (change)="getFileDetail($event)" accept=".csv" />
+          <label class="btn mb-0 label-button" for="fileUploadBtn">
+            <span>{{'batchProcess.selectFile' | translate}}</span>
+          </label>
+        </div>
+      </div>
+      <div class="row label-info"><span></span></div>
+      <div class="row justify-content-center mt-3" *ngIf="selectedFile">
+        <button class="btn btn-primary mr-3" (click)="handleOpenUploadPopup()">
+          {{'batchProcess.uploadBtn' | translate}}
+        </button>
+        <button class="btn btn-primary ml-3" (click)="deleteFile()">
+          {{'batchProcess.removeFileBtn' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<confirm-modal #confirmModal></confirm-modal>
+<close-modal #closeModal></close-modal>

@@ -1,0 +1,25 @@
+<ng-template #modal>
+  <div class="modal-body modal dialog-container">
+    <div class="title"> {{userEntity.id === undefined ? '利用者情報の新規登録を行います。' : '利用者情報を変更しますか？'}} </div>
+    <div class="content-container">
+      <div class="text-content"><span>ID : </span><span class="content">{{userEntity.userName}}</span></div>
+      <div class="text-content"><span>権限 : </span><span class="content">{{userEntity.permission}}</span></div>
+      <div class="text-content"><span>氏名 : </span><span class="content">{{userEntity.fullName}}</span></div>
+      <div class="text-content"><span>会社コード : </span><span class="content">{{userEntity.companyCode}}
+          {{companyName}}</span> </div>
+      <div class="text-content"><span>店舗コード : </span><span class="content">{{userEntity.storeCode}} {{storeName}}</span>
+      </div>
+      <div class="text-content"><span>登録日 : </span><span class="content">{{createdDate | date:"yyyy/MM/dd"}}</span>
+      </div>
+      <div class="text-content"></div>
+    </div>
+    <div class="confirm-button">
+      <button class="btn btn-modal" (click)="confirm()">
+        {{ 'system.button.confirm' | translate }}
+      </button>
+      <button class="btn btn-modal" (click)="close()">
+        {{ 'system.button.close' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,89 @@
+<div class="search-table">
+  <div class="row">
+    <div class="col-4 search-text wrap-text">{{ 'historyInquiry.search.memberNo' | translate}}</div>
+    <div class="col-2 search-text wrap-text">{{ 'historyInquiry.search.classification' | translate}}</div>
+    <div class="col-2 search-text wrap-text">{{ 'historyInquiry.search.companyCode' | translate}}</div>
+    <div class="col-2 search-text wrap-text">{{ 'historyInquiry.search.storeCode' | translate}}</div>
+    <div class="col-2 search-text wrap-text">{{ 'historyInquiry.search.deviceCode' | translate}}</div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-4"><input type="text" class="form-control" onlyHalfWidth="true" maxlength="10" [(ngModel)]="memberNo"
+        placeholder="0000000000">
+    </div>
+    <div class="col-2">
+      <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" placeholder="{{ 'historyInquiry.search.statusPlaceholder' | translate}}"
+        #statusSelect [items]="requestTypes" bindLabel="requestTypeName" bindValue="id" [(ngModel)]="requestTypeCode" [clearable]="true"
+        class="w-100">
+      </ng-select>
+    </div>
+
+    <div class="col-2"><input type="text" class="form-control" onlyHalfWidth="true" maxlength="4" [(ngModel)]="companyName"
+        placeholder="0000">
+    </div>
+    <div class="col-2"><input type="text" class="form-control" onlyHalfWidth="true" maxlength="4" [(ngModel)]="storeName"
+        placeholder="0000">
+    </div>
+    <div class="col-2"><input type="text" class="form-control" (change)="deviceCode = toASCII($event)" maxlength="20" [(ngModel)]="deviceCode"
+        placeholder="00000000"></div>
+  </div>
+  <div class="row">
+    <div class="col-2 search-text wrap-text">{{ 'historyInquiry.search.registeredDate' | translate }}</div>
+    <div class="col-2"></div>
+    <div class="col-2 search-text wrap-text">{{ 'historyInquiry.search.receptionist' | translate}}</div>
+  </div>
+  <div class="row">
+    <div class="col-4 d-flex">
+      <div class="form-group hidden">
+        <div class="input-group">
+          <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker" [autoClose]="'outside'"
+            (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" [startDate]="fromDate!" tabindex="-1">
+          <ng-template #t let-date let-focused="focused">
+            <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)" [class.faded]="isHovered(date) || isInside(date)"
+              (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+              {{ date.day }}
+            </span>
+          </ng-template>
+        </div>
+      </div>
+      <div class="w-50">
+        <div class="input-group w-100">
+          <input #dpFromDate class="form-control" placeholder="{{ 'historyInquiry.registeredDatePlaceholder' | translate }}" name="dpFromDate"
+            [value]="formatter.format(fromDate)" (blur)="validateFromDate($event)"
+            [(ngModel)]="fromDateModel" (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary btn-calendar calendar" (click)="datepicker.toggle()" type="button"><i
+                class="bi bi-calendar-date"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="separate-dash"><span>～</span></div>
+      <div class="w-50">
+        <div class="input-group w-100">
+          <input #dpToDate class="form-control" placeholder="{{ 'historyInquiry.registeredDate2Placeholder' | translate }}" name="dpToDate"
+            [value]="formatter.format(toDate)" (blur)="validateToDate($event)" [(ngModel)]="toDateModel"
+            (input)="toDate = validateInput(toDate, dpToDate.value)">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary btn-calendar calendar" (click)="datepicker.toggle()" type="button"><i
+                class="bi bi-calendar-date"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4"><input type="text" class="form-control" [(ngModel)]="createdBy"
+        placeholder="{{ 'historyInquiry.search.receptionist' | translate}}"></div>
+    <div class="col-2"><button class="btn btn-confirm w-100" (click)="clearData()">{{ 'historyInquiry.clearBtn' |
+        translate}}</button></div>
+    <div class="col-2"><button [checkPermission]="permission.WF711" class="btn btn-confirm w-100" (click)="page = 1;handleSearchClick()">{{
+        'historyInquiry.searchBtn' |
+        translate}}</button></div>
+  </div>
+</div>
+<div class="display-table">
+  <common-grid [checkPermission]="permission.WF712" [canDownload]="permission.WF713" [canView]="permission.WF72" #commonGrid height="500px"
+    [rowData]="rowData" [isInitGrid]="isInitGrid" [columnDefs]="columnDefs" [(page)]="page" [totalRecords]="totalRecords"
+    [recordsPerPage]="recordsPerPage" (sortEvent)="onSortCommon($event)" (rowDoubleClickEvent)="onRowDoubleClickCommon($event)"
+    (rowClickEvent)="onRowClickCommon($event)" (pageChangeEvent)="onPageChangeEvent($event)" (exportClickedEvent)="onExportClickedEvent($event)"
+    [isEnableExport]="isShowButtonExport">
+  </common-grid>
+</div>
+<close-modal #closeModal></close-modal>

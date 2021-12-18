@@ -1,0 +1,150 @@
+<div class="card m-3">
+  <div class="card-header">
+    <div class="title-edit">
+      <span>{{'deviceManagement.common.editTitle' | translate}}</span>
+      <div>
+        <button [checkPermission]="permission.WF934" class="btn btn-header" (click)="announceMessageWhenChangeStatus()"><i class="bi bi-check-lg icon"></i></button>
+        <button [checkPermission]="permission.WF934" class="btn btn-header" (click)="showConfirmDelete()"><i class="bi bi-trash icon"></i></button>
+        <button (click)="goBack()" class="btn btn-header"><i class="bi bi-x-lg icon"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+            'deviceManagement.deviceCode' | translate }}</span></div>
+      </div>
+      <div class="item-content col">{{model.deviceCode}}</div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+            'deviceManagement.company' | translate }}</span></div>
+      </div>
+      <div *ngIf="!isUserRole8" class="item-content-editable col-lg-2 col-md-2 col-sm-3 col-xs-3 npr">
+        <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" #companySelect='ngModel' required [items]="listCompanies"
+          bindLabel="companyCode" bindValue="id" [(ngModel)]="model.companyId" [clearable]="false" class="w-100"
+          (change)="handleCompanySelected($event)" (change)="handleCompanyChange($event)">
+        </ng-select>
+      </div>
+      <div *ngIf="isUserRole8" class="item-content col-lg-2 col-md-2 col-sm-3 col-xs-3 npr">
+          <span>{{companySelected}}</span>
+      </div>
+      <div class="item-content col"><span>{{companyName}}</span></div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+            'deviceManagement.store' | translate }}</span></div>
+      </div>
+      <div *ngIf="!isUserRole8"class="item-content-editable col-lg-2 col-md-2 col-sm-3 col-xs-3 npr">
+        <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" #storeSelect='ngModel' required [items]="listStores"
+          bindLabel="storeCode" bindValue="id" [(ngModel)]="model.storeId" (change)="handleStoreSelected($event)" [clearable]="false" class="w-100"
+          (change)="handleStoreChange($event)">
+        </ng-select>
+      </div>
+      <div *ngIf="isUserRole8" class="item-content col-lg-2 col-md-2 col-sm-3 col-xs-3 npr">
+        <span>{{storeSelected}}</span>
+      </div>
+      <div class="item-content col"><span>{{storeName}}</span></div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container">
+          <span class="item-title">{{ 'deviceManagement.registeredDate' | translate }}</span>
+        </div>
+      </div>
+      <div class="item-content col"><span>{{model.createdAt | dateFormatPipe }}</span></div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container">
+          <span class="item-title">{{ 'deviceManagement.registeredBy' | translate }}</span>
+        </div>
+      </div>
+      <div class="item-content col-lg-2 col-md-2 col-sm-3 col-xs-3">
+        <span>{{model.createdByUserName}}</span>
+      </div>
+      <div class="item-content col">
+        <span>{{model.createdByFullName}}</span>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+            'deviceManagement.status' | translate }}</span></div>
+      </div>
+      <div *ngIf="!isUserRole8" class="item-content-editable col-lg-4 col-md-4 col-sm-4 col-xs-6 npr">
+        <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" #deviceSelect required [items]="deviceStatus" [searchable]="false"
+          bindLabel="name" bindValue="status" [(ngModel)]="model.isActive" [clearable]="false" class="w-100">
+        </ng-select>
+      </div>
+      <div *ngIf="isUserRole8" class="item-content col-lg-4 col-md-4 col-sm-4 col-xs-6 npr">
+        <span>{{ model.isActive ? deviceStatus[0].name : deviceStatus[1].name }}</span>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable">
+          <span class="item-title-editable">{{ 'deviceManagement.isAutoLock' | translate }}</span>
+        </div>
+      </div>
+      <div class="item-content-editable col-lg-2 col-md-2 col-sm-3 col-xs-3">
+        <ui-switch [disabled]="isUserRole8" color="#3D97E3" [(ngModel)]="model.isAutoLock"></ui-switch>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable">
+          <span class="item-title-editable">{{ 'deviceManagement.lat' | translate }}</span>
+        </div>
+      </div>
+      <div *ngIf="!isUserRole8" class="item-content-editable col-lg-4 col-md-4 col-sm-4 col-xs-6">
+        <input type="text" class="form-control" (change)="model.lat = toASCII($event)" [(ngModel)]="model.lat" name="lat" #lat='ngModel'
+          (focus)="setInputPristine(lat)">
+      </div>
+      <div *ngIf="isUserRole8" class="item-content col-lg-4 col-md-4 col-sm-4 col-xs-6">
+        <span>{{ model.lat }}</span>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+            'deviceManagement.long' | translate }}</span></div>
+      </div>
+      <div *ngIf="!isUserRole8" class="item-content-editable col-lg-4 col-md-4 col-sm-4 col-xs-6">
+        <input type="text" class="form-control" (change)="model.long = toASCII($event)" [(ngModel)]="model.long" name="long" #long='ngModel'
+          (focus)="setInputPristine(long)">
+      </div>
+      <div *ngIf="isUserRole8" class="item-content col-lg-4 col-md-4 col-sm-4 col-xs-6">
+        <span>{{ model.long }}</span>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container">
+          <span class="item-title">{{ 'deviceManagement.updatedDate' | translate }}</span>
+        </div>
+      </div>
+      <div class="item-content col"><span>{{model.updatedAt| toLocalTime }}</span></div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container">
+          <span class="item-title">{{ 'deviceManagement.updatedBy' | translate }}</span></div>
+      </div>
+      <div class="item-content col-lg-2 col-md-2 col-sm-3 col-xs-3">
+        <span>{{model.updatedByUserName}}</span>
+      </div>
+      <div class="item-content col">
+        <span>{{model.updatedByFullName}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<confirm-modal #confirmModal></confirm-modal>
+<notice-modal #noticeModal></notice-modal>
+<close-modal #closeModal></close-modal>
+<close-device-modal #closeDeviceModal></close-device-modal>

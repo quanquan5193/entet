@@ -1,0 +1,27 @@
+<div class="batch-process">
+  <div class='col-md-6 first-column'>
+    <div class="card card-layout">
+      <p class="card-text">{{ 'systemManagement.common.registrationTitle' | translate }}</p>
+      <div class="card-body w-100">
+        <button class="card-text w-100 btn" type="button" [routerLink]="['/system-management/company-management']"
+          [checkPermission]="permission.WF91">{{
+          'systemManagement.route.company' | translate }}</button>
+        <button class="card-text w-100 btn" type="button" [routerLink]="['/system-management/store-management']"
+          [checkPermission]="permission.WF92">{{
+          'systemManagement.route.store' | translate }}</button>
+        <button class="card-text w-100 btn" type="button" [routerLink]="['/system-management/device-management']"
+          [checkPermission]="permission.WF93">{{
+          'systemManagement.route.device' | translate }}</button>
+      </div>
+    </div>
+  </div>
+  <div class='col-md-6'>
+    <div class="card card-layout">
+      <p class="card-text">{{ 'systemManagement.common.userTitle' | translate }}</p>
+      <div class="card-body w-100">
+        <button class="card-text w-100 btn" type="button" [routerLink]="['/system-management/user-management']" [checkPermission]="permission.WF94">{{
+          'systemManagement.route.user' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

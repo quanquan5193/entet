@@ -1,0 +1,23 @@
+@import "../modal.component.scss";
+
+.confirm-button {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.notice {
+  color: #ffff00 !important;
+}
+
+.option {
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+.option > span {
+  color: white;
+}

@@ -1,0 +1,33 @@
+<ng-template #modal>
+  <div class="modal-body modal dialog-container">
+    <div class="title">{{'systemManagement.company.createTitle' | translate }}</div>
+    <div class="content-container">
+      <div class="text-content"><span>{{'systemManagement.company.companyCode' | translate }}: </span><span
+          class="content">{{
+          this.companyEntity.companyCode
+          }}</span></div>
+      <div class="text-content"><span>{{'systemManagement.company.companyName' | translate }}: </span><span
+          class="content">{{
+          this.companyEntity.companyName }}</span></div>
+      <div class="text-content"><span>{{'systemManagement.company.shortcutName' | translate }}: </span><span
+          class="content">{{
+          this.companyEntity.normalizedCompanyName }}</span></div>
+      <div class="text-content"><span>{{'systemManagement.company.displayFlag' | translate }}: </span><span
+          class="content">{{
+          companyActiveStatus }}</span>
+        <div class="gap"></div><span>{{'systemManagement.company.order' | translate }}:
+        </span><span class="content">{{
+          this.companyEntity.order }}</span>
+      </div>
+      <div class="text-content"></div>
+    </div>
+    <div class="confirm-button">
+      <button class="btn btn-modal" (click)="confirm()">
+        {{ 'system.button.confirm' | translate }}
+      </button>
+      <button class="btn btn-modal" (click)="close()">
+        {{ 'system.button.close' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

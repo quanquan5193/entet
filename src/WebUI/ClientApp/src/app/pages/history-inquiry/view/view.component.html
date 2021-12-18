@@ -1,0 +1,227 @@
+<div class="card ml-3 mr-3 mt-3">
+  <div class="card-header">
+    <div class="title-edit title-inquiry-history">
+      <span>{{'historyInquiry.common.viewTitle' | translate}}</span>
+      <button [checkPermission]="permission.WF73" (click)="handleClickEdit()" class="btn btn-header"><i class="bi bi-pencil-fill icon"></i></button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.registeredDate' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.receiptedDatetime | date:"yyyy/MM/dd"}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.classification' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.requestType.requestTypeName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.memberNo' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.member.memberNo}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.company' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col-lg-2 col-md-2 col-sm-3 col-xs-3">
+            <span>{{model.store.company.companyCode}}</span>
+          </div>
+          <div class="item-content col"><span>{{model.store.company.companyName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.store' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col-lg-2 col-md-2 col-sm-3 col-xs-3"><span>{{model.store.storeCode}}</span>
+          </div>
+          <div class="item-content col"><span>{{model.store.storeName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.receptionist' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.member?.picStore?.picName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.deviceCode' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.device.deviceCode}}</span></div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.receiptNumber' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.requestCode}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.updatedBy' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col">
+            <span *ngIf="model.member.isUpdateInformation; else changed">有り</span>
+            <ng-template #changed>無し</ng-template>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.oldMemberNumber'
+                | translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.member.oldMemberNo}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.remark' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col text-area-break-line"><span class="w-100">{{model.member.remark}}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card ml-3 mr-3 mb-3">
+  <div class="card-header">
+    <div class="title-edit title-inquiry-history">
+      <span>{{'historyInquiry.common.viewInfoTitle' | translate}}</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.frigana' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col">
+            <span>{{model.member.furiganaLastName}}　{{model.member.furiganaFirstName}}</span>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.fullName' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.member.lastName}}　{{model.member.firstName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.fixedPhone' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.member.fixedPhone}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.zipcode' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{zipCodeFirtPart}} - {{zipCodeSecondPart}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.address' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span
+              class="w-100">{{model.member.province}}{{model.member.district}}{{model.member.street}}{{model.member.buildingName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.email' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.member.email}}</span></div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.mobilePhone' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.member.mobilePhone}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.dateOfBirth' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.member.dateOfBirth | date:"yyyy/MM/dd"}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.sex' | translate
+                }}</span></div>
+          </div>
+          <div class="item-content col">
+            <span *ngIf="model.member.sex == 1">男</span>
+            <span *ngIf="model.member.sex == 2">女</span>
+            <span *ngIf="model.member.sex == 3">その他</span>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.isReceiver' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col">
+            <span *ngIf="model.member.isRegisterAdvertisement">受取希望</span>
+            <span *ngIf="!model.member.isRegisterAdvertisement">受取拒否</span>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.withdrawal' |
+                translate }}</span></div>
+          </div>
+          <div class="item-content col">
+            <span *ngIf="model.member.isAgreeGetOutMember">同意</span>
+            <span *ngIf="!model.member.isAgreeGetOutMember">未同意</span>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.registrationKid'
+                | translate }}</span></div>
+          </div>
+          <div class="item-content col">
+            <span *ngIf="model.member.isRegisterKidClub">登録</span>
+            <span *ngIf="!model.member.isRegisterKidClub">未登録</span>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{
+                'historyInquiry.onlineRegistration' | translate }}</span></div>
+          </div>
+          <div class="item-content col">
+            <span *ngIf="model.member.isNetMember">登録</span>
+            <span *ngIf="!model.member.isNetMember">未登録</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<notice-modal #noticeModal></notice-modal>

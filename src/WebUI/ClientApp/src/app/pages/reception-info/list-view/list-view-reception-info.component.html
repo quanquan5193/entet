@@ -1,0 +1,315 @@
+<div class="row mr-0">
+  <div #inputArea class="col-xl-2 col-lg-2 col-md-3 col-sm-4 pr-0">
+    <div class="menu-group">
+      <div class="row ml-0 mt-2" style="color: #ffffff;">
+        <h5>{{'receptionInfo.search.title'|translate}}</h5>
+      </div>
+      <div class="row ml-0" style="color: #ffffff;">
+        <span>{{'receptionInfo.search.registerDate'|translate}}</span>
+      </div>
+      <div class="d-flex">
+        <div class="form-group hidden">
+          <div class="input-group">
+            <input name="datepicker" class="form-control" placement="right" [positionTarget]="buttonEl" ngbDatepicker #datepicker="ngbDatepicker"
+              [autoClose]="'outside'" (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden"
+              [startDate]="fromDate!" tabindex="-1">
+            <ng-template #t let-date let-focused="focused">
+              <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)" [class.faded]="isHovered(date) || isInside(date)"
+                (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+                {{ date.day }}
+              </span>
+            </ng-template>
+          </div>
+        </div>
+        <div class="w-100">
+          <div class="input-group w-100">
+            <input #dpFromDate class="form-control" placeholder="{{ 'receptionInfo.search.datePlaceHolder' | translate}}" name="dpFromDate"
+              [value]="formatter.format(fromDate)" (blur)="validateFromDate($event)" [(ngModel)]="fromDateModel"
+               (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+            <div class="input-group-append">
+              <button #buttonEl class="btn btn-outline-secondary btn-calendar calendar" (click)="datepicker.toggle()" type="button"><i
+                  class="bi bi-calendar-date"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="separate-dash-90"><span>～</span></div>
+        <div class="mb-4">
+          <div class="input-group w-100">
+            <input #dpToDate class="form-control" placeholder="{{ 'receptionInfo.search.datePlaceHolder' | translate}}" name="dpToDate"
+              [value]="formatter.format(toDate)" (blur)="validateToDate($event)" [(ngModel)]="toDateModel"
+              (input)="toDate = validateInput(toDate, dpToDate.value)">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary btn-calendar calendar" (click)="datepicker.toggle()" type="button"><i
+                  class="bi bi-calendar-date"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn btn-filter" [ngClass]="isCreateSelectedDisplayed ? 'btn-selected' : 'btn-not-select'" (click)="handleClickFilter(1)">
+          <div class="row">
+            <div class="col-2">
+              <i *ngIf="isCreateSelectedDisplayed" class="bi bi-check2-square" style="color: #EA6172;"></i>
+            </div>
+            <div class="col-10 text-btn">
+              <span>{{'receptionInfo.button.createNew'|translate}}</span>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div class="row">
+        <button class="btn btn-filter" [ngClass]="isSwitchSelectedDisplayed ? 'btn-selected' : 'btn-not-select'" (click)="handleClickFilter(2)">
+          <div class="row">
+            <div class="col-2">
+              <i *ngIf="isSwitchSelectedDisplayed" class="bi bi-check2-square" style="color: #EA6172;"></i>
+            </div>
+            <div class="col-10 text-btn">
+              <span>{{'receptionInfo.button.switchCard'|translate}}</span>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div class="row">
+        <button class="btn btn-filter" [ngClass]="isReissuedSelectedDisplayed ? 'btn-selected' : 'btn-not-select'" (click)="handleClickFilter(3)">
+          <div class="row">
+            <div class="col-2">
+              <i *ngIf="isReissuedSelectedDisplayed" class="bi bi-check2-square" style="color: #EA6172;"></i>
+            </div>
+            <div class="col-10 text-btn">
+              <span>{{'receptionInfo.button.reissuedCard'|translate}}</span>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div class="row">
+        <button class="btn btn-filter" [ngClass]="isChangeSelectedDisplayed ? 'btn-selected' : 'btn-not-select'" (click)="handleClickFilter(4)">
+          <div class="row">
+            <div class="col-2">
+              <i *ngIf="isChangeSelectedDisplayed" class="bi bi-check2-square" style="color: #EA6172;"></i>
+            </div>
+            <div class="col-10 text-btn">
+              <span>{{'receptionInfo.button.changeCardInfo'|translate}}</span>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div class="row">
+        <button class="btn btn-filter" [ngClass]="isDiscardSelectedDisplayed ? 'btn-selected' : 'btn-not-select'" (click)="handleClickFilter(5)">
+          <div class="row">
+            <div class="col-2">
+              <i *ngIf="isDiscardSelectedDisplayed" class="bi bi-check2-square" style="color: #EA6172;"></i>
+            </div>
+            <div class="col-10 text-btn">
+              <span>{{'receptionInfo.button.discardCard'|translate}}</span>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div class="row">
+        <button class="btn btn-filter" [ngClass]="isPointSelectedDisplayed ? 'btn-selected' : 'btn-not-select'" (click)="handleClickFilter(6)">
+          <div class="row">
+            <div class="col-2">
+              <i *ngIf="isPointSelectedDisplayed" class="bi bi-check2-square" style="color: #EA6172;"></i>
+            </div>
+            <div class="col-10 text-btn">
+              <span>{{'receptionInfo.button.pointMigration'|translate}}</span>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div class="row">
+        <button class="btn btn-filter" [ngClass]="isKidSelectedDisplayed ? 'btn-selected' : 'btn-not-select'" (click)="handleClickFilter(7)">
+          <div class="row">
+            <div class="col-2">
+              <i *ngIf="isKidSelectedDisplayed" class="bi bi-check2-square" style="color: #EA6172;"></i>
+            </div>
+            <div class="col-10 text-btn">
+              <span>{{'receptionInfo.button.kidClub'|translate}}</span>
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div class="button-group"
+      *ngIf="(isCreateSelectedDisplayed || isSwitchSelectedDisplayed || isKidSelectedDisplayed || isChangeSelectedDisplayed || isReissuedSelectedDisplayed || isPointSelectedDisplayed || isDiscardSelectedDisplayed) && (fromDate || toDate)">
+      <div class="row">
+        <button [checkPermission]="permission.WF81" class="btn btn-change-type btn-secondary" (click)="handleViewByChart()">
+          <div class="row">
+            <div class="col-2">
+              <i class="bi bi-bar-chart-line"></i>
+            </div>
+            <div class="col-10 text-btn">
+              <span>{{'receptionInfo.button.viewChart'|translate}}</span>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div class="row">
+        <button [checkPermission]="permission.WF82" class="btn btn-change-type btn-secondary" (click)="handleViewByDetail()">
+          <div class="row">
+            <div class="col-2">
+              <i class="bi bi-table"></i>
+            </div>
+            <div class="col-10 text-btn">
+              <span>{{'receptionInfo.button.viewTable'|translate}}</span>
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div class="button-group"
+      *ngIf="!((isCreateSelectedDisplayed || isSwitchSelectedDisplayed || isKidSelectedDisplayed || isChangeSelectedDisplayed || isReissuedSelectedDisplayed || isPointSelectedDisplayed || isDiscardSelectedDisplayed) && (fromDate || toDate))">
+      <div class="row">
+        <button [checkPermission]="permission.WF81" class="btn btn-change-type btn-disable" disabled>
+          <div class="row">
+            <div class="col-2">
+              <i class="bi bi-bar-chart-line"></i>
+            </div>
+            <div class="col-10 text-btn">
+              <span>{{'receptionInfo.button.viewChart'|translate}}</span>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div class="row">
+        <button [checkPermission]="permission.WF82" class="btn btn-change-type btn-disable" disabled>
+          <div class="row">
+            <div class="col-2">
+              <i class="bi bi-table"></i>
+            </div>
+            <div class="col-10 text-btn">
+              <span>{{'receptionInfo.button.viewTable'|translate}}</span>
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-10 col-lg-10 col-md-9 col-sm-8 data-group">
+    <div [checkPermission]="permission.WF81" *ngIf="showChart" class="card">
+      <div class="card-header">
+        <h4 class="mb-0">{{'receptionInfo.button.viewChart'|translate}}</h4>
+      </div>
+      <div class="card-body p-1">
+        <div class="summary"
+          *ngIf="isCreateSelected || isSwitchSelected || isKidSelected || isChangeSelected || isReissuedSelected || isPointSelected || isDiscardSelected">
+          <div *ngIf="isCreateSelected" class="summary-create summary-total">
+            <span>{{'receptionInfo.button.createNew'|translate}}</span>
+            <span class="total">{{ totalCreateNew }}</span>
+          </div>
+          <div *ngIf="isSwitchSelected" class="summary-switch summary-total">
+            <span>{{'receptionInfo.button.switchCard'|translate}}</span>
+            <span class="total">{{ totalSwitchCard }}</span>
+          </div>
+          <div *ngIf="isKidSelected" class="summary-kids summary-total">
+            <span>{{'receptionInfo.button.kidClub'|translate}}</span>
+            <span class="total">{{ totalKidClub }}</span>
+          </div>
+          <div *ngIf="isChangeSelected || isReissuedSelected || isPointSelected || isDiscardSelected" class="summary-other summary-total">
+            <span>{{'receptionInfo.button.other'|translate}}</span>
+            <span class="total">{{ totalOther }}</span>
+          </div>
+        </div>
+        <div class="card mt-2">
+          <div class="card-header">
+            <div class="title-edit">
+              <span></span>
+              <div id="button-date">
+                <button class="btn btn-graph" (click)="handleClickSearch(1)"
+                  [ngClass]="oneYearSelected && 'text-underline'">{{'receptionInfo.button.oneYear'|translate}}</button>
+                <button class="btn btn-graph" (click)="handleClickSearch(2)"
+                  [ngClass]="oneMonthSelected && 'text-underline'">{{'receptionInfo.button.oneMonth'|translate}}</button>
+                <button class="btn btn-graph" (click)="handleClickSearch(3)"
+                  [ngClass]="oneWeekSelected && 'text-underline'">{{'receptionInfo.button.oneWeek'|translate}}</button>
+                <button class="btn btn-graph" (click)="handleClickSearch(4)"
+                  [ngClass]="todaySelected && 'text-underline'">{{'receptionInfo.button.today'|translate}}</button>
+                <button *ngIf="!isChartNoData" [checkPermission]="permission.WF83" class="btn btn-graph btn-graph-download ml-5"
+                  (click)="handleExportGraph()"><i class="bi bi-arrow-down-square mr-3"></i>{{'receptionInfo.button.exportExcel'|translate}}</button>
+                <button *ngIf="isChartNoData" [checkPermission]="permission.WF83" class="btn btn-graph btn-graph-download ml-5 btn-disable"
+                  disabled><i class="bi bi-arrow-down-square mr-3"></i>{{'receptionInfo.button.exportExcel'|translate}}</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div *ngIf="isChartNoData" style="color: red;">
+              {{ 'system.commonGrid.noRecord01' | translate}}
+            </div>
+            <div class="graph" *ngIf="!isChartNoData">
+              <ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorScheme" [results]="multi" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel" [animations]="animations" [noBarWhenZero]="noBarWhenZero" [yAxisTickFormatting]="yAxisTickFormatting"
+                (select)="onSelect($event)">
+                <ng-template #tooltipTemplate let-model="model">
+                  <span>{{model.label}}：{{model.value}}</span>
+                </ng-template>
+              </ngx-charts-bar-vertical-stacked>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div [checkPermission]="permission.WF82" *ngIf="showTable" class="card">
+      <div class="card-header">
+        <h4 class="mb-0">{{'receptionInfo.button.viewTableData'|translate}}</h4>
+      </div>
+      <div class="card-body p-1">
+        <common-grid height="613px" #commonGrid [rowData]="rowData" [canDownload]="permission.WF83" [isInitGrid]="isInitGrid"
+          [isEnableExport]="isShowButtonExport" [columnDefs]="columnDefs" [(page)]="page" [totalRecords]="totalRecords"
+          [recordsPerPage]="recordsPerPage" (pageChangeEvent)="onPageChangeEvent($event)" (exportClickedEvent)="handleExportTable($event)">
+        </common-grid>
+      </div>
+    </div>
+  </div>
+</div>
+<close-modal #closeModal></close-modal>
+
+<!-- Element for Export -->
+<div class="invisible-div">
+  <div id="chart-view-export" *ngIf="multi && multi.length > 0" class="div-chart-export">
+    <div class="summary">
+      <div *ngIf="isCreateSelected" class="summary-create summary-total">
+        <span>{{'receptionInfo.button.createNew'|translate}}</span>
+        <span class="total">{{ totalCreateNew }}</span>
+      </div>
+      <div *ngIf="isSwitchSelected" class="summary-switch summary-total">
+        <span>{{'receptionInfo.button.switchCard'|translate}}</span>
+        <span class="total">{{ totalSwitchCard }}</span>
+      </div>
+      <div *ngIf="isKidSelected" class="summary-kids summary-total">
+        <span>{{'receptionInfo.button.kidClub'|translate}}</span>
+        <span class="total">{{ totalKidClub }}</span>
+      </div>
+      <div *ngIf="isChangeSelected || isReissuedSelected || isPointSelected || isDiscardSelected" class="summary-other summary-total">
+        <span>{{'receptionInfo.button.other'|translate}}</span>
+        <span class="total">{{ totalOther }}</span>
+      </div>
+    </div>
+    <div class="card mt-2">
+      <div class="card-header">
+        <div class="title-edit">
+          <span>{{'receptionInfo.title'|translate}}</span>
+          <div id="date-range">
+            <span>{{'receptionInfo.selectDate'|translate}}</span>
+            <span>{{multi[0].name}}</span>
+            <span>～</span>
+            <span>{{multi[multi.length - 1].name}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div>
+          <ngx-charts-bar-vertical-stacked [view]="[calculateChartExportWidth(multi.length), 438]" [scheme]="colorScheme" [results]="multi"
+            [xAxis]="isDisplayDateExport" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [showGridLines]="showGridLine" [animations]="false"
+            [yAxisTickFormatting]="yAxisTickFormatting" [xAxisTickFormatting]="xAxisTickFormatting" [noBarWhenZero]="noBarWhenZero">
+          </ngx-charts-bar-vertical-stacked>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-overlay-wrapper" *ngIf="isLoadingChart">
+  <div class="loader"></div>
+</div>

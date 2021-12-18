@@ -1,0 +1,35 @@
+<div class="d-flex justify-content-between">
+  <div class="d-flex ml-5 mt-2 mr-2 mb-2">
+    <div class="header-container">
+      <div class="logo-container">
+        <a href="#">
+          <img src="/assets/image/logo.svg" alt="logo">
+        </a>
+      </div>
+    </div>
+    <div class="header-container w-100 ml-2" style="padding-top: 1rem;">
+      <div *ngIf="notHomePage && !(childpath == '/timeout')" class="d-flex ml-2 mr-4 home-class">
+        <i class="bi bi-chevron-left icon-size" (click)="goBack()"></i>
+        <i class="bi bi-house-door icon-size ml-4" (click)="goHome()"></i>
+      </div>
+      <div *ngIf="!notHomePage" class="d-flex ml-2 mr-3 home-title">
+        <span class="breadcrumb-label" style="font-size: 18px;">{{ 'home.route' | translate }}</span>
+        <i class="bi bi-house-door icon-size" style="visibility: hidden;"></i>
+      </div>
+      <div class="ml-2">
+        <xng-breadcrumb [separator]="iconTemplate">
+          <ng-container *xngBreadcrumbItem="let breadcrumb; let info = info;">
+            <img *ngIf="breadcrumb && info" [src]="info" class="icon-breadcrumb mr-2" alt="icon">
+            <ng-container *ngIf="breadcrumb"><span class="breadcrumb-label">{{ breadcrumb | translate }}</span></ng-container>
+          </ng-container>
+        </xng-breadcrumb>
+        <ng-template #iconTemplate>
+          <i class="bi bi-chevron-right icon-size"></i>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div>
+    <app-login-menu></app-login-menu>
+  </div>
+</div>

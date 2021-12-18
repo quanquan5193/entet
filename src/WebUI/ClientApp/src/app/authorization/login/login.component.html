@@ -1,0 +1,25 @@
+<div>
+  <div>
+    <img class="image" src="/assets/image/login_bg.png" alt="login_bg">
+  </div>
+  <div class="login shadow bg-white rounded">
+    <form class="form w-100 pl-5 pr-5" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+      <img class="mb-3" style="width: 60%;" src="/assets/image/logo.svg" alt="logo">
+      <span class="mb-5">{{ 'authorize.loginTitle' | translate}}</span>
+      <div class="w-100 pl-5 pr-5 pb-4">
+        <input type="text" class="form-control input-class" formControlName="userName" id="userName" placeholder="{{ 'authorize.userNamePlaceholder' | translate }}">
+      </div>
+      <div class="w-100 pl-5 pr-5">
+        <input class="form-control input-class" formControlName="password" id="password" type="password" placeholder="{{ 'authorize.passwordPlaceholder' | translate }}">
+      </div>
+      <div class="w-100 pl-5 pr-5 pt-2 pb-4">
+        <span *ngIf="validateForm.invalid" style="color: red;">{{ message }}&nbsp;</span>
+        <span>&nbsp;</span>
+      </div>
+      <div class="w-100 pl-5 pr-5">
+        <button type="submit" class="btn btn-lg btn-primary w-100" *ngIf="!validateForm.invalid">{{ 'authorize.login' | translate}}</button>
+        <button type="button" class="btn btn-lg btn-secondary w-100" *ngIf="validateForm.invalid" disabled>{{ 'authorize.login' | translate}}</button>
+      </div>
+    </form>
+  </div>
+</div>

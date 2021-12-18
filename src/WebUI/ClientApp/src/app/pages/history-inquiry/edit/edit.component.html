@@ -1,0 +1,368 @@
+<div class="card ml-3 mr-3 mt-3">
+  <div class="card-header">
+    <div class="title-edit title-inquiry-history">
+      <span>{{'historyInquiry.common.viewTitle' | translate}}</span>
+      <div>
+        <button *ngIf="!(model.member.memberNo && model.member.picStoreId)" [checkPermission]="permission.WF73" class="btn btn-header btn-disable"
+          disabled><i class="bi bi-check-lg icon"></i></button>
+        <button *ngIf="(model.member.memberNo && model.member.picStoreId)" [checkPermission]="permission.WF73" (click)="confirmUpdate()"
+          class="btn btn-header"><i class="bi bi-check-lg icon"></i></button>
+        <button [checkPermission]="permission.WF74" class="btn btn-header" (click)="showConfirmDelete()">
+          <i class="bi bi-trash icon"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.registeredDate' | translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.receiptedDatetime | date:"yyyy/MM/dd"}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.classification' | translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.requestType.requestTypeName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title">{{ 'historyInquiry.memberNo' | translate }}</span></div>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-6 item-content-editable">
+            <input type="text" class="form-control" onlyHalfWidth="true" maxlength="10"
+              [(ngModel)]="model.member.memberNo" name="memberNo" #memberNo='ngModel' (focus)="setElementDirty(memberNo)">
+          </div>
+        </div>
+
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.company' | translate }}</span></div>
+          </div>
+          <div class="item-content col-lg-2 col-md-2 col-sm-3 col-xs-3">
+            <span>{{model.device.store.company.companyCode}}</span>
+          </div>
+          <div class="item-content col"><span>{{model.device.store.company.companyName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.store' | translate }}</span></div>
+          </div>
+          <div class="item-content col-lg-2 col-md-2 col-sm-3 col-xs-3"><span>{{model.device.store.storeCode}}</span>
+          </div>
+          <div class="item-content col"><span>{{model.device.store.storeName}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title">{{
+                'historyInquiry.receptionist' | translate }}</span></div>
+          </div>
+          <div class="item-content-editable col npr">
+            <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" #pic required [items]="listPIC" bindLabel="picName" bindValue="id"
+              [(ngModel)]="model.member.picStoreId" [clearable]="false" class="w-100">
+            </ng-select>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.deviceCode' | translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.device.deviceCode}}</span></div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.receiptNumber' | translate }}</span></div>
+          </div>
+          <div class="item-content col"><span>{{model.requestCode}}</span></div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container"><span class="item-title">{{ 'historyInquiry.updatedBy' | translate }}</span></div>
+          </div>
+          <div class="item-content col">
+            <ui-switch *ngIf="model.requestType.id === 2" color="#3D97E3" [(ngModel)]="model.member.isUpdateInformation">
+            </ui-switch>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title">{{ 'historyInquiry.oldMemberNumber' | translate }}</span>
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-6 item-content-editable">
+            <input [disabled]="!(model.requestType.id === 2 || model.requestType.id === 3 || model.requestType.id === 6)" type="text"
+              class="form-control" [(ngModel)]="model.member.oldMemberNo" onlyHalfWidth="true" maxlength="10"
+              name="oldMemberNo" #oldMemberNo='ngModel' (focus)="setElementDirty(oldMemberNo)">
+          </div>
+        </div>
+
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title">{{ 'historyInquiry.remark'
+                | translate }}</span></div>
+          </div>
+          <div class="item-content-editable col"><textarea maxlength="500" class="form-control w-100" rows="4"
+              [(ngModel)]="model.member.remark"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card ml-3 mr-3 mb-3">
+  <div class="card-header">
+    <div class="title-edit title-inquiry-history">
+      <span>{{'historyInquiry.common.viewInfoTitle' | translate}}</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title">{{ 'historyInquiry.frigana' | translate }}</span></div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 item-content-editable">
+            <input type="text" class="form-control" maxlength="30" [(ngModel)]="model.member.furiganaLastName" name="furiganaLastName" #furiganaLastName='ngModel'
+              (focus)="setElementDirty(furiganaLastName)">
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 item-content-editable">
+            <input type="text" class="form-control" maxlength="30" [(ngModel)]="model.member.furiganaFirstName" name="furiganaFirstName" #furiganaFirstName='ngModel'
+              (focus)="setElementDirty(furiganaFirstName)">
+          </div>
+        </div>
+
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title">{{
+                'historyInquiry.fullName' | translate }}</span></div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 item-content-editable">
+            <input type="text" class="form-control" maxlength="30" [(ngModel)]="model.member.lastName" name="lastName" #lastName='ngModel'
+              (focus)="setElementDirty(lastName)">
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 item-content-editable">
+            <input type="text" class="form-control" maxlength="30" [(ngModel)]="model.member.firstName" name="firstName" #firstName='ngModel'
+              (focus)="setElementDirty(firstName)">
+          </div>
+        </div>
+
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable">
+              <span class="item-title">{{ 'historyInquiry.fixedPhone' | translate }}</span>
+            </div>
+          </div>
+          <div class="col item-content-editable">
+            <input type="text" class="form-control" onlyHalfWidth="true" maxlength="11"
+              [(ngModel)]="model.member.fixedPhone" name="fixedPhone" #fixedPhone='ngModel' (focus)="setElementDirty(fixedPhone)">
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable">
+              <span class="item-title">{{ 'historyInquiry.zipcode' | translate }}</span>
+            </div>
+          </div>
+          <div class="col-8">
+            <div class="item-content-editable zipcode-sec-1">
+              <input type="text" class="form-control" onlyHalfWidth="true" [(ngModel)]="zipCodeLeft" maxlength="3"
+                name="zipcodeFirstPart" #zipcodeFirstPart='ngModel' (focus)="setElementDirty(zipcodeFirstPart)">
+            </div>
+            <div class="zipcode-sec-2">
+              <div class="item-content">
+                <span>ー</span>
+              </div>
+            </div>
+            <div class="item-content-editable zipcode-sec-3">
+              <input type="text" class="form-control" onlyHalfWidth="true" [(ngModel)]="zipCodeRight" maxlength="4"
+                name="zipcodeSecondPart" #zipcodeSecondPart='ngModel' (focus)="setElementDirty(zipcodeSecondPart)">
+            </div>
+            <div class="item-content-editable zipcode-sec-4">
+              <button class="btn btn-confirm btn-disable"
+                *ngIf="zipCodeLeft == null || zipCodeLeft.length < 3 || zipCodeRight == null || zipCodeRight.length < 4" disabled>
+                {{ 'historyInquiry.searchZipcode'| translate }}
+              </button>
+              <button class="btn btn-confirm"
+                *ngIf="!(zipCodeLeft == null || zipCodeLeft.length < 3 || zipCodeRight == null || zipCodeRight.length < 4)"
+                (click)="getZipCodeInfo()">
+                {{ 'historyInquiry.searchZipcode'| translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable">
+              <span class="item-title">{{ 'historyInquiry.address' | translate }}</span>
+            </div>
+          </div>
+          <div class="col item-content-editable">
+            <input type="text" class="form-control" [(ngModel)]="model.member.province" maxlength="50" name="province" #province="ngModel">
+          </div>
+        </div>
+
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"></div>
+          <div class="col">
+            <div class="item-content-editable">
+              <input type="text" class="form-control" [(ngModel)]="model.member.district" maxlength="50" name="district" #district="ngModel">
+            </div>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"></div>
+          <div class="col">
+            <div class="item-content-editable">
+              <input type="text" class="form-control" [(ngModel)]="model.member.street" maxlength="50" name="street" #street="ngModel">
+            </div>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"></div>
+          <div class="col">
+            <div class="item-content-editable">
+              <input type="text" class="form-control" [(ngModel)]="model.member.buildingName" maxlength="50" name="buildingName"
+                #buildingName="ngModel">
+            </div>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable">
+              <span class="item-title">{{ 'historyInquiry.email' | translate }}</span>
+            </div>
+          </div>
+          <div class="col item-content-editable">
+            <input type="text" maxlength="200" class="form-control" [(ngModel)]="model.member.email" name="email"
+              #email='ngModel' (focus)="setElementDirty(email)">
+          </div>
+        </div>
+
+      </div>
+      <div class="col-6">
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable">
+              <span class="item-title">{{ 'historyInquiry.mobilePhone' | translate }}</span>
+            </div>
+          </div>
+          <div class="col item-content-editable">
+            <input type="text" class="form-control" onlyHalfWidth="true" maxlength="11"
+              [(ngModel)]="model.member.mobilePhone" name="mobilePhone" #mobilePhone='ngModel' (focus)="setElementDirty(mobilePhone)">
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable">
+              <span class="item-title">{{ 'historyInquiry.dateOfBirth' | translate }}</span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="item-content-editable">
+              <div class="input-group">
+                <input class="form-control" placeholder="yyyy/MM/dd" name="dateOfBirth" #dateOfBirth='ngModel' [(ngModel)]="model.member.dateOfBirth"
+                  ngbDatepicker #d="ngbDatepicker" (focus)="setElementDirty(dateOfBirth)" (blur)="validateDate($event)">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                    <i class="bi bi-calendar-date"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable">
+              <span class="item-title">{{ 'historyInquiry.sex' | translate }}</span>
+            </div>
+          </div>
+          <div class="col history-sex-edit">
+            <div class="item-content-editable">
+              <div class="btn-group radio-container" role="group">
+                <div class="col-4">
+                  <input type="radio" name="sex" id="male" autocomplete="off" value="1" [(ngModel)]="sex" [checked]="model.member.sex === 1"
+                    (click)="setSexValue(1)">
+                  <label class="mb-0 ml-2" for="male" (click)="setSexValue(1)">{{ 'historyInquiry.male' | translate }}</label>
+                </div>
+                <div class="col-4">
+                  <input type="radio" name="sex" id="female" autocomplete="off" value="2" [(ngModel)]="sex" [checked]="model.member.sex === 2"
+                    (click)="setSexValue(2)">
+                  <label class="mb-0 ml-2" for="female" (click)="setSexValue(2)">{{ 'historyInquiry.female' | translate }}</label>
+                </div>
+                <div class="col-4">
+                  <input type="radio" name="sex" id="other" autocomplete="off" value="3" [(ngModel)]="sex" [checked]="model.member.sex === 3"
+                    (click)="setSexValue(3)">
+                  <label class="mb-0 ml-2" for="other" (click)="setSexValue(3)">{{ 'historyInquiry.other' | translate }}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable">
+              <span class="item-title">{{ 'historyInquiry.isReceiver' | translate }}</span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="item-content-editable">
+              <ui-switch color="#3D97E3" [(ngModel)]="model.member.isRegisterAdvertisement">
+              </ui-switch>
+            </div>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container">
+              <span class="item-title">{{ 'historyInquiry.withdrawal' | translate }}</span>
+            </div>
+          </div>
+          <div class="col ">
+            <div class="item-content">
+              <span *ngIf="model.member.isAgreeGetOutMember">同意</span>
+              <span *ngIf="!model.member.isAgreeGetOutMember">未同意</span>
+            </div>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container">
+              <span class="item-title">{{ 'historyInquiry.registrationKid' | translate }}</span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="item-content">
+              <span *ngIf="model.member.isRegisterKidClub">登録</span>
+              <span *ngIf="!model.member.isRegisterKidClub">未登録</span>
+            </div>
+          </div>
+        </div>
+        <div class="row p-1">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+            <div class="col-lg-10 offset-1 item-container-editable">
+              <span class="item-title">{{ 'historyInquiry.onlineRegistration' | translate }}</span>
+            </div>
+          </div>
+          <div class="col">
+            <div class="item-content-editable">
+              <!-- <span *ngIf="model.member.email != null && model.member.email.length > 0; else isNet">登録</span>
+                          <ng-template #isNet>未登録</ng-template> -->
+              <ui-switch color="#3D97E3" [(ngModel)]="model.member.isNetMember">
+              </ui-switch>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<confirm-modal #confirmModal></confirm-modal>
+<notice-modal #noticeModal></notice-modal>
+<close-modal #closeModal></close-modal>

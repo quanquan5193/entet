@@ -1,0 +1,101 @@
+<div class="card m-3">
+  <div class="card-header">
+    <div class="title-edit">
+      <span>{{'deviceManagement.common.createTitle' | translate}}</span>
+      <div>
+        <button *ngIf="!(deviceEntity.deviceCode && deviceEntity.companyCode && deviceEntity.storeCode && deviceEntity.deviceStatus != undefined)"
+          [checkPermission]="permission.WF933" class="btn btn-header btn-disable" disabled><i class="bi bi-check-lg icon"></i></button>
+        <button *ngIf="(deviceEntity.deviceCode && deviceEntity.companyCode && deviceEntity.storeCode && deviceEntity.deviceStatus != undefined)"
+          [checkPermission]="permission.WF933" class="btn btn-header" (click)="confirmUpdate()"><i class="bi bi-check-lg icon"></i></button>
+        <button (click)="goBack()" class="btn btn-header"><i class="bi bi-x-lg icon"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+            'deviceManagement.deviceCode' | translate }}</span></div>
+      </div>
+      <div class="item-content-editable col-lg-2 col-md-2 col-sm-3 col-xs-3 npr">
+        <input type="text" class="form-control" maxlength="20" (change)="deviceEntity.deviceCode = toASCII($event)"
+          [(ngModel)]="deviceEntity.deviceCode" #deviceCodeInput='ngModel' (focus)="setInputPristine(deviceCodeInput)">
+      </div>
+      <span class="required">*</span>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+            'deviceManagement.company' | translate }}</span></div>
+      </div>
+      <div class="item-content-editable col-lg-2 col-md-2 col-sm-3 col-xs-3 npr">
+        <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" #companySelect='ngModel' [items]="listCompanies"
+          bindLabel="companyCode" bindValue="companyCode" [(ngModel)]="deviceEntity.companyCode" [clearable]="false" class="w-100"
+          (change)="handleCompanyChange($event)" (focus)="setInputPristine(companySelect)">
+        </ng-select>
+      </div>
+      <span class="required">*</span>
+      <div class="item-content-editable col sub-text"><span>{{companyName}}</span></div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+            'deviceManagement.store' | translate }}</span></div>
+      </div>
+      <div class="item-content-editable col-lg-2 col-md-2 col-sm-3 col-xs-3 npr">
+        <ng-select [disabled]="!(deviceEntity.companyCode?.length > 0)" notFoundText="{{ 'system.commonGrid.noItem' | translate }}"
+          #storeSelect='ngModel' [items]="listStores" bindLabel="storeCode" bindValue="storeCode" [(ngModel)]="deviceEntity.storeCode"
+          [clearable]="false" (change)="handleStoreChange($event, lat.valid,long.valid)" class="w-100" (focus)="setInputPristine(storeSelect)">
+        </ng-select>
+      </div>
+      <span class="required">*</span>
+      <div class="item-content-editable col sub-text"><span>{{storeName}}</span></div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+            'deviceManagement.status' | translate }}</span></div>
+      </div>
+      <div class="item-content-editable col-lg-2 col-md-2 col-sm-3 col-xs-3 npr">
+        <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}" #deviceSelect
+          placeholder="{{ 'deviceManagement.statusPlaceholder' | translate}}" [items]="deviceStatus" [searchable]="false" bindLabel="name"
+          bindValue="status" [(ngModel)]="deviceEntity.deviceStatus" [clearable]="false" class="w-100" (focus)="setInputPristine(deviceSelect)">
+        </ng-select>
+      </div>
+      <span class="required">*</span>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+            'deviceManagement.isAutoLock' | translate }}</span></div>
+      </div>
+      <div class="item-content-editable col-lg-2 col-md-2 col-sm-3 col-xs-3 npr">
+        <ui-switch color="#3D97E3" [(ngModel)]="deviceEntity.isAutoLock">
+        </ui-switch>
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+            'deviceManagement.lat' | translate }}</span></div>
+      </div>
+      <div class="item-content-editable col-lg-4 col-md-4 col-sm-4 col-xs-6"><input type="text" class="form-control"
+        (change)="deviceEntity.lat = toASCII($event)" [(ngModel)]="deviceEntity.lat" #lat='ngModel' (focus)="setInputPristine(lat)">
+      </div>
+    </div>
+    <div class="row p-1">
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+        <div class="col-lg-10 offset-1 item-container-editable"><span class="item-title-editable">{{
+            'deviceManagement.long' | translate }}</span></div>
+      </div>
+      <div class="item-content-editable col-lg-4 col-md-4 col-sm-4 col-xs-6"><input type="text" class="form-control"
+        (change)="deviceEntity.long = toASCII($event)" [(ngModel)]="deviceEntity.long" #long='ngModel' (focus)="setInputPristine(long)">
+      </div>
+    </div>
+  </div>
+</div>
+
+<confirm-modal #confirmModal></confirm-modal>
+<confirm-create-modal #confirmCreateModal></confirm-create-modal>
+<notice-modal #noticeModal></notice-modal>
+<close-modal #closeModal></close-modal>

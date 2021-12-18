@@ -1,0 +1,11 @@
+<ng-template #modal>
+  <div class="modal-body modal">
+    <div></div>
+    <div class="text-content"><span class="content">{{ content }}</span></div>
+    <div>
+      <button class="btn btn-modal" (click)="close()">
+        {{ 'system.button.confirm' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

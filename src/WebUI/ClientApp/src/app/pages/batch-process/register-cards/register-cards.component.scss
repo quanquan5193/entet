@@ -1,0 +1,18 @@
+@import "./../../pages.component.scss";
+
+.label-button {
+  background: #555555;
+  height: 100%;
+  color: white;
+  cursor: pointer;
+  width: 120px;
+}
+
+.label-button:hover {
+  background: #1070c3;
+}
+
+.label-info {
+  height: 50px;
+  align-items: center;
+}

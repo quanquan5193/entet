@@ -1,0 +1,87 @@
+@import "./../../pages.component.scss";
+
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+// .search-row {
+//     align-items: center;
+// }
+
+.search-row-item-input {
+    padding: 0 5px;
+    button {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    }
+}
+
+.text-padding-top-05 {
+    padding-top: 0.5%;
+}
+
+.search-row-item-width-5 {
+    width: 5%;
+}
+.search-row-item-width-8 {
+    width: 8%;
+}
+.search-row-item-width-10 {
+    width: 10%;
+}
+.search-row-item-width-13 {
+    width: 13%;
+}
+.search-row-item-width-15 {
+    width: 15%;
+}
+.search-row-item-width-20 {
+    width: 20%;
+}
+.search-row-item-width-25 {
+    width: 25%;
+}
+
+.search-row-item-input:first-child {
+    padding: 0 5px 0 0;
+}
+.search-row-item-input:last-child {
+    padding: 0 0 0 5px;
+}
+
+.search-row-item-label-right {
+    text-align: right;
+}
+.search-row-item-label-center {
+    text-align: center;
+}
+
+.search-table:nth-child(2){
+    background-color: #4A4A4A;
+}
+
+.search-table:nth-child(3){
+    background-color: #4A4A4A;
+    padding-top: unset;
+}
+
+.ng-dirty.ng-invalid {
+    border: 1px solid red !important;
+}
+
+.user-form {
+    background: #4A4A4A;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.user-form:last-child{
+    background-color: #4A4A4A;
+    padding-top: unset;
+}
+.btn-confirm {
+    height: 38px;
+}

@@ -1,0 +1,94 @@
+<div class="search-table">
+  <div class="menu-row-1">
+    <div class="row search-row">
+      <div class="create-input wrap-text">{{ 'systemManagement.device.companyCode' | translate}} </div>
+      <div class="w-14 create-input"><input type="text" placeholder="0000" class="form-control" onlyHalfWidth="true" maxlength="4"
+          [(ngModel)]="companyCode">
+      </div>
+      <div class="create-input w-38"><input type="text" class="form-control input-name" [(ngModel)]="companyName">
+      </div>
+      <div class="create-input w-10">
+        <button [checkPermission]="permission.WF911" class="btn btn-confirm btn-search" (click)="page = 1;searchData()">{{
+          'systemManagement.device.btnSearch' |
+          translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="search-table search-row-2" [checkPermission]="permission.WF913">
+  <div class="menu-row-2">
+    <div class="row">
+      <div class="create-input search-text wrap-text">{{
+        'systemManagement.company.companyCode' | translate }}</div>
+      <div class="create-input w-18 search-text wrap-text">{{ 'systemManagement.company.companyName' | translate }}
+      </div>
+      <div class="create-input w-18 search-text wrap-text">{{ 'systemManagement.company.shortcutName' | translate }}
+      </div>
+      <div class="create-input search-text wrap-text">{{ 'systemManagement.company.displayFlag' | translate }}
+      </div>
+      <div class="create-input search-text wrap-text">{{ 'systemManagement.company.order' | translate }}</div>
+    </div>
+    <div class="row mb-2">
+      <div class="create-input search-text">
+        <input type="text" class="form-control input-row2-name" [disabled]="!isActiveCreate" maxlength="4"
+          (focus)="setInputPristine(companyCodeValid)" onlyHalfWidth="true" maxlength="4"
+          [(ngModel)]="companyCodeSelected" name="companyCodeValid" #companyCodeValid='ngModel'>
+      </div>
+      <div class="create-input w-18 search-text">
+        <input type="text" class="form-control input-row2-name" [(ngModel)]="companyNameSelected" maxlength="200" name="companyNameValid"
+          #companyNameValid='ngModel' (focus)="handleInputFocus(companyNameValid,'companyNameValid');setInputPristine(companyNameValid);"
+          (focusout)="handleInputCompanyNameFocusOut(companyNameSelected)">
+      </div>
+      <div class="create-input w-18 search-text">
+        <input type="text" class="form-control input-row2-name" [(ngModel)]="normalizedCompanyNameSelected" maxlength="200"
+          name="normalizedCompanyNameValid" #normalizedCompanyNameValid='ngModel'
+          (focus)="handleInputFocus(normalizedCompanyNameValid,'normalizedCompanyNameValid');setInputPristine(normalizedCompanyNameValid)"
+          (focusout)="handleInputCompanyNameNormalFocusOut(normalizedCompanyNameSelected)">
+      </div>
+      <div style=" margin-right: 1.5%;" class="create-input search-text">
+        <ng-select notFoundText="{{ 'systemManagement.company.displayFlagPlaceHolder' | translate }}" name="companyStatusValid"
+          #companyStatusValid='ngModel' [items]="companyStatus" bindLabel="name" bindValue="status" [(ngModel)]="displayFlagSelected"
+          [clearable]="false" class="w-100" (change)="checkstatus($event)"
+          (focus)="handleInputFocus(companyStatusValid,'companyStatusValid');setInputPristine(companyStatusValid);"
+          placeholder="{{ 'systemManagement.company.displayFlagPlaceHolder' | translate}}">
+        </ng-select>
+      </div>
+      <div class="create-input search-text">
+        <input type="text" class="form-control input-row2-name" onlyHalfWidth="true" [(ngModel)]="orderSelected" min="1"
+          name="orderValid" #orderValid='ngModel' maxlength="6" (change)="validateOrder($event.target.value)"
+          (focus)="handleInputFocus(orderValid,'orderValid');setInputPristine(orderValid);">
+      </div>
+      <div class="create-input ">
+        <button
+          [disabled]="companyIdSelected != null || !companyCodeSelected || !companyNameSelected || !normalizedCompanyNameSelected || displayFlagSelected == null || !orderSelected"
+          [checkPermission]="permission.WF913" class="btn btn-confirm child-button" (click)="confirmCreateCompany()">
+          {{'systemManagement.company.btnRegister'| translate}}
+        </button>
+      </div>
+      <div class="create-input ">
+        <button [disabled]="companyIdSelected == null" [checkPermission]="permission.WF914" (click)="confirmUpdateCompany()"
+          class="btn btn-confirm  child-button">{{'systemManagement.company.btnUpdate'|
+          translate}}</button>
+      </div>
+      <div class="create-input ">
+        <button [disabled]="companyIdSelected == null" [checkPermission]="permission.WF914" class="btn btn-confirm  child-button"
+          (click)="confirmDeleteCompany()">{{'systemManagement.company.btnDelete'|
+          translate}}</button>
+      </div>
+      <div class="create-input ">
+        <button (click)="clearData()" class="btn btn-confirm  child-button">{{'systemManagement.company.btnClear'|
+          translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="display-table">
+  <common-grid #commonGrid height="500px" [checkPermission]="permission.WF912" [rowData]="rowData" [canView]="permission.WF915"
+    [isInitGrid]="isInitGrid" [columnDefs]="columnDefs" [(page)]="page" [totalRecords]="totalRecords" [recordsPerPage]="recordsPerPage"
+    (sortEvent)="onSortCommon($event)" (rowDoubleClickEvent)="onRowDoubleClickCommon($event)" (rowClickEvent)="onRowClickCommon($event)"
+    (pageChangeEvent)="onPageChangeEvent($event)" [isEnableExport]="false"></common-grid>
+</div>
+<confirm-create-company #confirmCreateCompanyModal></confirm-create-company>
+<confirm-modal #confirmModal></confirm-modal>
+<notice-modal #noticeModal></notice-modal>
+<close-modal #closeModal></close-modal>

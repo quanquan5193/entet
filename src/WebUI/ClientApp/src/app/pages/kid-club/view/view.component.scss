@@ -1,0 +1,12 @@
+@import "./../../pages.component.scss";
+
+.card.kid-view-container{
+    border-width: 4px;
+
+    .card-header.kid-view-header{
+        background-color: transparent;
+        border: none;
+        font-size: 20px;
+        color: #727272;
+    }
+}

@@ -1,0 +1,11 @@
+<div #myDrop="ngbDropdown" ngbDropdown class="d-inline-block h-100">
+  <button *ngIf="isAuthenticated | async" class="user-name" id="dropdownBasic1" ngbDropdownToggle>
+    <span>{{ userName | async }}</span>
+  </button>
+  <button *ngIf="!(isAuthenticated | async)" class="user-name">
+    <span [routerLink]='["authentication/login"]'>{{ 'authorize.login' | translate }}</span>
+  </button>
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-logout">
+    <div (click)="logout()" class="logout" ngbDropdownItem>{{ 'authorize.logout' | translate }}</div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+@import "../modal.component.scss";
+
+.btn-close {
+  min-width: auto;
+}
+.modal-header{  
+  background-color: #555555;
+  border: 1px solid #555555;
+}
+.btn-close.close{
+  position: absolute;
+  right: 10px; 
+  top: 10px;
+}
+.row.align-items-center{
+  min-height: 300px;
+}

@@ -1,0 +1,99 @@
+<div class="search-table">
+  <div class="menu-row-1">
+    <div class="row search-row">
+      <div class="create-input wrap-text" style="text-align: left;">{{ 'systemManagement.device.companyCode' |
+        translate}}
+      </div>
+      <div class="create-input"><input type="text" placeholder="0000" class="form-control" onlyHalfWidth="true"
+          [(ngModel)]="companyCodeSelected" maxlength="4" (focusout)="companyCodeFocusout()"></div>
+      <div class="create-input w-26"><input type="text" class="form-control input-name" [(ngModel)]="companyNameSelected"></div>
+      <div class="create-input w-5 wrap-text" style="text-align: right;">{{ 'systemManagement.store.storeCode' |
+        translate}}</div>
+      <div class="create-input"><input type="text" placeholder="0000" class="form-control" [(ngModel)]="storeCode"
+        onlyHalfWidth="true" maxlength="4">
+      </div>
+      <div class="create-input w-26"><input type="text" class="form-control input-name" [(ngModel)]="storeName"></div>
+      <div class="create-input w-10">
+        <button [checkPermission]="permission.WF921" class="btn btn-confirm btn-search" (click)="page = 1;handleSearchData()">{{
+          'systemManagement.device.btnSearch' | translate}}</button>
+      </div>
+      <div class="col">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="search-table search-row-2" [checkPermission]="permission.WF923">
+  <div class="menu-row-2">
+    <div class="row">
+      <div class="create-input search-text wrap-text">{{ 'systemManagement.store.storeCode' | translate }}</div>
+      <div class="create-input w-18 search-text wrap-text">{{ 'systemManagement.store.storeName' | translate }}</div>
+      <div class="create-input w-18 search-text wrap-text">{{ 'systemManagement.store.shortcutName' | translate }}</div>
+      <div class="create-input search-text wrap-text">{{ 'systemManagement.store.displayFlag' | translate }}</div>
+      <div class="create-input search-text wrap-text">{{ 'systemManagement.store.order' | translate }}</div>
+    </div>
+    <div class="row mb-2">
+      <div class="create-input search-text">
+        <input type="text" class="form-control input-row2-name" onlyHalfWidth="true" maxlength="4"
+          [disabled]="!isActiveCreate" maxlength="4" (focus)="setInputPristine(storeCodeValid)" [(ngModel)]="storeCodeSelected" name="storeCodeValid"
+          #storeCodeValid='ngModel'>
+      </div>
+      <div class="create-input w-18 search-text ">
+        <input type="text" class="form-control input-row2-name" [(ngModel)]="storeNameSelected" maxlength="200" name="storeNameValid"
+          #storeNameValid='ngModel' (ngClass)="storeNameValid.valid && 'ng-invalid'"
+          (focus)="handleInputFocus(storeNameValid,'storeNameValid');setInputPristine(storeNameValid);"
+          (focusout)="handleInputStoreNameFocusOut(storeNameSelected)">
+      </div>
+      <div class="create-input w-18 search-text">
+        <input type="text" class="form-control input-row2-name" [(ngModel)]="normalizedStoreNameSelected" maxlength="200"
+          name="normalizedStoreNameValid" #normalizedStoreNameValid='ngModel' (ngClass)="normalizedStoreNameValid.valid && 'ng-invalid'"
+          (focus)="handleInputFocus(normalizedStoreNameValid,'normalizedStoreNameValid');setInputPristine(normalizedStoreNameValid);"
+          (focusout)="handleInputStoreNameNormalFocusOut(normalizedStoreNameSelected)">
+      </div>
+      <div class="create-input search-text">
+        <ng-select notFoundText="{{ 'systemManagement.company.displayFlagPlaceHolder' | translate }}" name="storeStatusValid"
+          #storeStatusValid='ngModel' [items]="storeStatus" bindLabel="name" (ngClass)="storeStatusValid.valid  && 'ng-invalid'" bindValue="status"
+          [(ngModel)]="displayFlagSelected" [clearable]="false" class="w-100"
+          placeholder="{{ 'systemManagement.company.displayFlagPlaceHolder' | translate}}"
+          (focus)="handleInputFocus(storeStatusValid,'storeStatusValid');setInputPristine(storeStatusValid);">
+        </ng-select>
+      </div>
+      <div class="create-input search-text">
+        <input type="text" class="form-control input-row2-name" onlyHalfWidth="true" [(ngModel)]="orderSelected"
+          name="orderValid" #orderValid='ngModel' (change)="validateOrder($event.target.value)" maxlength="6"
+          (ngClass)="orderValid.valid && 'ng-invalid'" (focus)="handleInputFocus(orderValid,'orderValid');setInputPristine(orderValid);">
+      </div>
+      <div class="create-input">
+        <button
+          [disabled]="storeIdSelected != null || !storeCodeSelected || !storeNameSelected || !normalizedStoreNameSelected || displayFlagSelected == null || !orderSelected"
+          class="btn btn-confirm child-button" (click)="confirmCreateStore()" [checkPermission]="permission.WF923">
+          {{'systemManagement.company.btnRegister'| translate}}
+        </button>
+      </div>
+      <div class="create-input">
+        <button [disabled]="(storeIdSelected == null)" (click)="confirmUpdateStore()" [checkPermission]="permission.WF924"
+          class="btn btn-confirm child-button">{{'systemManagement.company.btnUpdate'|
+          translate}}</button>
+      </div>
+      <div class="create-input">
+        <button [disabled]="(storeIdSelected == null)" (click)="confirmDeleteStore()" [checkPermission]="permission.WF924"
+          class="btn btn-confirm  child-button">{{'systemManagement.company.btnDelete'|
+          translate}}</button>
+      </div>
+      <div class="create-input">
+        <button (click)="clearData()" class="btn btn-confirm  child-button">{{'systemManagement.company.btnClear'|
+          translate}}</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="display-table">
+  <common-grid [checkPermission]="permission.WF922" #commonGrid height="500px" [canView]="'permission.WF925'" [rowData]="rowData"
+    [isInitGrid]="isInitGrid" [columnDefs]="columnDefs" [(page)]="page" [totalRecords]="totalRecords" [recordsPerPage]="recordsPerPage"
+    (sortEvent)="onSortCommon($event)" (rowDoubleClickEvent)="onRowDoubleClickCommon($event)" (rowClickEvent)="onRowClickCommon($event)"
+    (pageChangeEvent)="onPageChangeEvent($event)" [isEnableExport]="false"></common-grid>
+</div>
+<confirm-modal #confirmModal></confirm-modal>
+<notice-modal #noticeModal></notice-modal>
+<close-modal #closeModal></close-modal>
+<confirm-create-store #confirmCreateStoreModal></confirm-create-store>

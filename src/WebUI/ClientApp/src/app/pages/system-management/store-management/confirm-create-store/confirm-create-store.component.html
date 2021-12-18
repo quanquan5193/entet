@@ -1,0 +1,33 @@
+<ng-template #modal>
+  <div class="modal-body modal dialog-container">
+    <div class="title">{{'systemManagement.store.confirmDialog.title' | translate }}</div>
+    <div class="content-container">
+      <div class="text-content"><span>{{'systemManagement.store.storeCode' | translate }}: </span><span
+          class="content">{{
+          this.storeEntity.storeCode
+          }}</span></div>
+      <div class="text-content"><span>{{'systemManagement.store.storeName' | translate }}: </span><span
+          class="content">{{
+          this.storeEntity.storeName }}</span></div>
+      <div class="text-content"><span>{{'systemManagement.store.shortcutName' | translate }}: </span><span
+          class="content">{{
+          this.storeEntity.normalizedStoreName }}</span></div>
+      <div class="text-content"><span>{{'systemManagement.store.displayFlag' | translate }}: </span><span
+          class="content">{{
+          storeActiveStatus }}</span>
+        <div class="gap"></div><span>{{'systemManagement.store.order' | translate }}:
+        </span><span class="content">{{
+          this.storeEntity.order }}</span>
+      </div>
+      <div class="text-content"></div>
+    </div>
+    <div class="confirm-button">
+      <button class="btn btn-modal" (click)="confirm()">
+        {{ 'system.button.confirm' | translate }}
+      </button>
+      <button class="btn btn-modal" (click)="close()">
+        {{ 'system.button.close' | translate }}
+      </button>
+    </div>
+  </div>
+</ng-template>

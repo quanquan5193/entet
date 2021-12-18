@@ -1,0 +1,46 @@
+<div class="d-flex flex-column">
+  <div class="main-element">
+    <div class="home">
+      <div class="menu-item">
+        <div class="card card-layout" [routerLink]="['/card']" [checkPermission]="permission.WF4">
+          <img class="card-img-top" src="/assets/image/home/card.svg" alt="Cart">
+          <div class="card-body p-0">
+            <p class="card-text mb-0">{{ 'home.title.cardFirstLine' | translate }}</p>
+            <p class="card-text">{{ 'home.title.cardSecondLine' | translate }}</p>
+          </div>
+        </div>
+        <div class="card card-layout" [routerLink]="['/batch-process']" [checkPermission]="permission.WF6">
+          <img class="card-img-top" src="/assets/image/home/import.svg" alt="Cart">
+          <div class="card-body p-0">
+            <p class="card-text">{{ 'home.title.import' | translate }}</p>
+          </div>
+        </div>
+        <div class="card card-layout" [routerLink]="['/kid-club']" [checkPermission]="permission.WF5">
+          <img class="card-img-top" src="/assets/image/home/kid-club.svg" alt="Cart">
+          <div class="card-body p-0">
+            <p class="card-text mb-0">{{ 'home.title.kidClubFirstLine' | translate }}</p>
+            <p class="card-text">{{ 'home.title.kidClubSecondLine' | translate }}</p>
+          </div>
+        </div>
+        <div class="card card-layout" [routerLink]="['/reception-info']" [checkPermission]="permission.WF8">
+          <img class="card-img-top" src="/assets/image/home/chart.svg" alt="Cart">
+          <div class="card-body p-0">
+            <p class="card-text">{{ 'home.title.chart' | translate }}</p>
+          </div>
+        </div>
+        <div class="card card-layout" [routerLink]="['/history-inquiry']" [checkPermission]="permission.WF7">
+          <img class="card-img-top" src="/assets/image/home/log.svg" alt="Cart">
+          <div class="card-body p-0">
+            <p class="card-text">{{ 'home.title.log' | translate }}</p>
+          </div>
+        </div>
+        <div class="card card-layout" [routerLink]="['/system-management']" [checkPermission]="permission.WF9">
+          <img class="card-img-top" src="/assets/image/home/setting.svg" alt="Cart">
+          <div class="card-body p-0">
+            <p class="card-text">{{ 'home.title.setting' | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

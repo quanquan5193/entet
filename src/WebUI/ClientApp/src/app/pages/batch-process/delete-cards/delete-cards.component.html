@@ -1,0 +1,101 @@
+<div class="search-table">
+  <div class="row">
+    <div class="col-4 search-text">{{ 'batchProcess.search.memberNo' | translate}}</div>
+    <div class="col-2 search-text">{{ 'batchProcess.search.companyCode' | translate}}</div>
+    <div class="col-2 search-text">{{ 'batchProcess.search.storeCode' | translate}}</div>
+    <div class="col-2 search-text">{{ 'batchProcess.search.cardStatus' | translate}}</div>
+    <div class="col-2 search-text">{{ 'batchProcess.search.expiredDate' | translate}}</div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-4 d-flex">
+      <div class="w-50"><input placeholder="{{ 'batchProcess.search.memberNoPlaceholder' | translate}}" maxlength="10"
+        onlyHalfWidth="true" [(ngModel)]="memberNoFrom" type="text" class="form-control"></div>
+      <div class="separate-dash"><span>～</span></div>
+      <div class="w-50"><input placeholder="{{ 'batchProcess.search.memberNo2Placeholder' | translate}}" maxlength="10"
+        onlyHalfWidth="true" [(ngModel)]="memberNoTo" type="text" class="form-control"></div>
+    </div>
+    <div class="col-2"><input placeholder="{{ 'batchProcess.search.companyCodePlaceholder' | translate}}" maxlength="4"
+      onlyHalfWidth="true" [(ngModel)]="companyCode" type="text" class="form-control"></div>
+    <div class="col-2"><input placeholder="{{ 'batchProcess.search.storeCodePlaceholder' | translate}}" maxlength="4"
+      onlyHalfWidth="true" [(ngModel)]="storeCode" type="text" class="form-control"></div>
+    <div class="col-2">
+      <ng-select notFoundText="{{ 'system.commonGrid.noItem' | translate }}"
+        placeholder="{{ 'batchProcess.search.cardStatusPlaceholder' | translate}}" #statusSelect [items]="listStatus" bindLabel="Text"
+        bindValue="Value" [(ngModel)]="status" [clearable]="true" class="w-100">
+      </ng-select>
+    </div>
+    <div class="col-2"><input placeholder="{{ 'batchProcess.search.expiredDatePlaceholder' | translate}}"
+        (blur)="validateExpirationDate(expirationDate)" [(ngModel)]="expirationDate" type="text"
+        class="form-control"></div>
+  </div>
+  <div class="row">
+    <div class="col-2 search-text">{{ 'batchProcess.search.registeredDate' | translate }}</div>
+    <div class="col-2"></div>
+    <div class="col-2 search-text">{{ 'batchProcess.search.receptionist' | translate}}</div>
+  </div>
+  <div class="row">
+    <div class="col-4 d-flex">
+      <div class="form-group hidden">
+        <div class="input-group">
+          <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker" [autoClose]="'outside'"
+            (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" [startDate]="fromDate!" tabindex="-1">
+          <ng-template #t let-date let-focused="focused">
+            <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)" [class.faded]="isHovered(date) || isInside(date)"
+              (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+              {{ date.day }}
+            </span>
+          </ng-template>
+        </div>
+      </div>
+      <div class="w-50">
+        <div class="input-group w-100">
+          <input #dpFromDate class="form-control" placeholder="{{ 'batchProcess.search.registeredDatePlaceholder' | translate}}" name="dpFromDate"
+            [value]="formatter.format(fromDate)" (blur)="validateFromDate($event)" [(ngModel)]="fromDateModel"
+             (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary btn-calendar calendar" (click)="datepicker.toggle()" type="button"><i
+                class="bi bi-calendar-date"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="separate-dash"><span>～</span></div>
+      <div class="w-50">
+        <div class="input-group w-100">
+          <input #dpToDate class="form-control" placeholder="{{ 'batchProcess.search.registeredDate2Placeholder' | translate}}" name="dpToDate"
+            [value]="formatter.format(toDate)" (blur)="validateToDate($event)" [(ngModel)]="toDateModel"
+            (input)="toDate = validateInput(toDate, dpToDate.value)">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary btn-calendar calendar" (click)="datepicker.toggle()" type="button"><i
+                class="bi bi-calendar-date"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8 row pr-0">
+      <div class="col-5"><input placeholder="{{ 'batchProcess.search.receptionistPlaceholder' | translate}}" [(ngModel)]="registeredBy" type="text"
+          class="form-control">
+      </div>
+      <div class="col-7 row ml-0 mr-0 pr-0">
+        <div class="col-4 pl-0"><button (click)="handleClearData()" class="btn btn-confirm w-100">{{ 'batchProcess.clearBtn' | translate}}</button>
+        </div>
+        <div class="col-4"><button (click)="handleSearch()" class="btn btn-confirm w-100">{{ 'batchProcess.searchBtn' | translate}}</button></div>
+        <div class="col-4 pr-0">
+          <button title="{{ 'batchProcess.deleteBtn' | translate}}" *ngIf="!(listCardsDto && listCardsDto.length)" disabled
+            class="btn btn-secondary w-100" style="cursor: not-allowed;">{{ 'batchProcess.deleteBtn' | translate}}</button>
+          <button title="{{ 'batchProcess.deleteBtn' | translate}}" *ngIf="listCardsDto && listCardsDto.length" (click)="handleClickDelete()"
+            class="btn btn-delete w-100">{{ 'batchProcess.deleteBtn' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="display-table">
+  <common-grid #commonGrid [isInitGrid]="isInitGrid" height="500px" [rowData]="rowData" [columnDefs]="columnDefs" [(page)]="page"
+    [totalRecords]="totalRecords" [recordsPerPage]="recordsPerPage" (sortEvent)="onSortCommon($event)"
+    (rowDoubleClickEvent)="onRowDoubleClickCommon($event)" (rowClickEvent)="onRowClickCommon($event)" (pageChangeEvent)="onPageChangeEvent($event)"
+    (exportClickedEvent)="onExportClickedEvent($event)">
+  </common-grid>
+</div>
+<notice-modal #noticeModal></notice-modal>
+<confirm-modal #confirmModal></confirm-modal>
+<close-modal #closeModal></close-modal>
